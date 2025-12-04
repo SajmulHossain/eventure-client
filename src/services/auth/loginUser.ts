@@ -1,132 +1,127 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { zodValidator } from "@/lib/zodValidation";
+import { serverFetch } from "@/lib/server-fetch";
 import { loginZodSchema } from "@/zod/auth.validation";
+import {parse} from 'cookie';
+import { deleteCookie, deleteCookie, setCookie } from "./token";
+import envConfig from "@/config/env.config";
+import jwt, { Secret } from "jsonwebtoken";
+import { redirect } from "next/navigation";
 
 export const loginUser = async (
   _currentState: any,
-  formData: any
+  formData: FormData
 ): Promise<any> => {
   try {
     const redirectTo = formData.get("redirect") || null;
+
     let accessTokenObject: null | any = null;
     let refreshTokenObject: null | any = null;
-    const payload = {
+
+    const loginData = {
       email: formData.get("email"),
       password: formData.get("password"),
     };
+    const validatedData = loginZodSchema.safeParse(loginData);
 
-    if (zodValidator(payload, loginZodSchema).success === false) {
-      return zodValidator(payload, loginZodSchema);
+    if (!validatedData.success) {
+      return {
+        errors: validatedData.error.issues.map((issue) => ({
+          field: issue.path[0],
+          message: issue.message,
+        })),
+      };
     }
 
-    const validatedPayload = zodValidator(
-      payload,
-      loginZodSchema
-    ).data;
-
     const res = await serverFetch.post("/auth/login", {
-      body: JSON.stringify(validatedPayload),
+      body: JSON.stringify(loginData),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const result = await res.json();
+    const cookieHeaders = res.headers.getSetCookie();
 
-    const setCookieHeaders = res.headers.getSetCookie();
-
-    if (setCookieHeaders && setCookieHeaders.length > 0) {
-      setCookieHeaders.forEach((cookie: string) => {
+    if (cookieHeaders && cookieHeaders.length) {
+      cookieHeaders.map((cookie: string) => {
         const parsedCookie = parse(cookie);
 
-        if (parsedCookie["accessToken"]) {
-          accessTokenObject = parsedCookie;
+        if (parsedCookie.accessToken) {
+          accessTokenObject = parsedCookie as Record<string, string>;
         }
-        if (parsedCookie["refreshToken"]) {
-          refreshTokenObject = parsedCookie;
+
+        if (parsedCookie.refreshToken) {
+          refreshTokenObject = parsedCookie as Record<string, string>;
         }
       });
     } else {
-      throw new Error("No Set-Cookie header found");
+      throw new Error("No set cookie header found!");
     }
 
-    if (!accessTokenObject) {
-      throw new Error("Tokens not found in cookies");
-    }
-
-    if (!refreshTokenObject) {
-      throw new Error("Tokens not found in cookies");
+    if (!accessTokenObject || !refreshTokenObject) {
+      throw new Error("No tokens found");
     }
 
     await setCookie("accessToken", accessTokenObject.accessToken, {
-      secure: true,
       httpOnly: true,
-      maxAge: parseInt(accessTokenObject["Max-Age"]) || 1000 * 60 * 60,
+      maxAge: parseInt(accessTokenObject["Max-Age"]),
+      expires: accessTokenObject.Expires,
+      secure: true,
       path: accessTokenObject.Path || "/",
-      sameSite: accessTokenObject["SameSite"] || "none",
+      sameSite: accessTokenObject.SameSite || "none",
+    });
+    await setCookie("refreshToken", refreshTokenObject.refreshToken, {
+      httpOnly: true,
+      maxAge: parseInt(refreshTokenObject["Max-Age"]),
+      expires: refreshTokenObject.Expires,
+      sameSite: refreshTokenObject.SameSite || "none",
+      secure: true,
+      path: refreshTokenObject.Path || "/",
     });
 
-    await setCookie("refreshToken", refreshTokenObject.refreshToken, {
-      secure: true,
-      httpOnly: true,
-      maxAge:
-        parseInt(refreshTokenObject["Max-Age"]) || 1000 * 60 * 60 * 24 * 90,
-      path: refreshTokenObject.Path || "/",
-      sameSite: refreshTokenObject["SameSite"] || "none",
-    });
-    const verifiedToken: JwtPayload | string = jwt.verify(
+    const verifiedToken = jwt.verify(
       accessTokenObject.accessToken,
-      process.env.JWT_SECRET as string
+      envConfig.access_token_secret as Secret
     );
 
     if (typeof verifiedToken === "string") {
+      await deleteCookie();
       throw new Error("Invalid token");
     }
 
-    const userRole: UserRole = verifiedToken.role;
+    const result = await res.json();
 
     if (!result.success) {
-      throw new Error(result.message || "Login failed");
-    }
-
-    if (redirectTo && result.data.needPasswordChange) {
-      const requestedPath = redirectTo.toString();
-      if (isValidRedirectForRole(requestedPath, userRole)) {
-        redirect(`/reset-password?redirect=${requestedPath}`);
-      } else {
-        redirect("/reset-password");
-      }
-    }
-
-    if (result.data.needPasswordChange) {
-      redirect("/reset-password");
+      throw new Error(result.message || "Login Failed!");
     }
 
     if (redirectTo) {
-      const requestedPath = redirectTo.toString();
-      if (isValidRedirectForRole(requestedPath, userRole)) {
-        redirect(`${requestedPath}?loggedIn=true`);
+      const requestPath = redirectTo.toString();
+      if (isValidRedirectPath(requestPath, verifiedToken.role)) {
+        redirect(`${requestPath}?loggedIn=true`);
       } else {
-        redirect(`${getDefaultDashboardRoute(userRole)}?loggedIn=true`);
+        redirect(
+          `${getDefaultDashboardRoutes(verifiedToken.role)}?loggedIn=true`
+        );
       }
     } else {
-      redirect(`${getDefaultDashboardRoute(userRole)}?loggedIn=true`);
+      redirect(
+        `${getDefaultDashboardRoutes(verifiedToken.role)}?loggedIn=true`
+      );
     }
   } catch (error: any) {
-    // Re-throw NEXT_REDIRECT errors so Next.js can handle them
     if (error?.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
     console.log(error);
     return {
       success: false,
-      message: `${
+      error,
+      message:
         process.env.NODE_ENV === "development"
-          ? error.message
-          : "Login Failed. You might have entered incorrect email or password."
-      }`,
+          ? error?.message
+          : "Login Failed",
     };
   }
 };
