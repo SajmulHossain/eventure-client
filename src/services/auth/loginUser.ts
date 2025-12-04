@@ -1,18 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import {
-  getDefaultDashboardRoute,
-  isValidRedirectForRole,
-  UserRole,
-} from "@/lib/auth-utils";
-import { serverFetch } from "@/lib/server-fetch";
-import { zodValidator } from "@/lib/zodValidator";
-import { loginValidationZodSchema } from "@/zod/auth.validation";
-import { parse } from "cookie";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { redirect } from "next/navigation";
-import { setCookie } from "./tokenHandlers";
+import { zodValidator } from "@/lib/zodValidation";
+import { loginZodSchema } from "@/zod/auth.validation";
 
 export const loginUser = async (
   _currentState: any,
@@ -27,13 +17,13 @@ export const loginUser = async (
       password: formData.get("password"),
     };
 
-    if (zodValidator(payload, loginValidationZodSchema).success === false) {
-      return zodValidator(payload, loginValidationZodSchema);
+    if (zodValidator(payload, loginZodSchema).success === false) {
+      return zodValidator(payload, loginZodSchema);
     }
 
     const validatedPayload = zodValidator(
       payload,
-      loginValidationZodSchema
+      loginZodSchema
     ).data;
 
     const res = await serverFetch.post("/auth/login", {
