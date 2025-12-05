@@ -31,7 +31,7 @@ const footerLinks = [
 
 const Footer = () => {
   return (
-    <footer className="min-h-screen flex flex-col">
+    <footer className="flex flex-col bg-white">
       <div className="grow bg-muted" />
       <div className="border-t">
         <div className="max-w-(--breakpoint-xl) mx-auto">

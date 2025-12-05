@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <div>
+    <div className="bg-amber-200">
       <h1>This is HomePage component</h1>
     </div>
   );
