@@ -59,7 +59,7 @@ export const getRouteOwner = (
   return null;
 };
 
-export const getDefaultDashboardRoute = (role: UserRole): string => {
+export const getDefaultDashboardRoutes = (role: UserRole): string => {
   switch (role) {
     case "ADMIN":
       return "/admin/dashboard";
@@ -73,10 +73,7 @@ export const getDefaultDashboardRoute = (role: UserRole): string => {
   }
 };
 
-export const isValidRedirectForRole = (
-  redirectPath: string,
-  role: UserRole
-): boolean => {
+export const isValidRedirectPath = (redirectPath: string, role: UserRole): boolean => {
   const routeOwner = getRouteOwner(redirectPath);
 
   if (routeOwner === null || routeOwner === "COMMON") {

@@ -3,12 +3,15 @@
 
 import { serverFetch } from "@/lib/server-fetch";
 import { loginZodSchema } from "@/zod/auth.validation";
-import {parse} from 'cookie';
-import { deleteCookie, deleteCookie, setCookie } from "./token";
+import { parse } from "cookie";
+import { deleteCookie, setCookie } from "./token";
 import envConfig from "@/config/env.config";
 import jwt, { Secret } from "jsonwebtoken";
 import { redirect } from "next/navigation";
-import { getDefaultDashboardRoutes } from "@/lib/auth.utils";
+import {
+  getDefaultDashboardRoutes,
+  isValidRedirectPath,
+} from "@/lib/auth.utils";
 
 export const loginUser = async (
   _currentState: any,
