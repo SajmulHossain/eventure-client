@@ -8,6 +8,7 @@ import { deleteCookie, deleteCookie, setCookie } from "./token";
 import envConfig from "@/config/env.config";
 import jwt, { Secret } from "jsonwebtoken";
 import { redirect } from "next/navigation";
+import { getDefaultDashboardRoutes } from "@/lib/auth.utils";
 
 export const loginUser = async (
   _currentState: any,
