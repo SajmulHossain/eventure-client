@@ -5,7 +5,7 @@ import Logo from "../../../assets/logo/Logo";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-6 inset-x-4 h-16 bg-background border max-w-(--breakpoint-xl) mx-auto rounded-full">
+    <header className="fixed top-6 inset-x-4 h-16 bg-background border mx-auto rounded-full max-w-7xl">
       <div className="h-full flex items-center justify-between mx-auto px-4">
         <Logo />
 
@@ -17,9 +17,9 @@ const Navbar = () => {
             variant="outline"
             className="hidden sm:inline-flex rounded-full"
           >
-            Sign In
+            Log In
           </Button>
-          <Button className="rounded-full">Get Started</Button>
+          <Button className="rounded-full">Register</Button>
 
           {/* Mobile Menu */}
           <div className="md:hidden">
@@ -27,7 +27,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

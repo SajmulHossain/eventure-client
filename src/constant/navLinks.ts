@@ -3,7 +3,7 @@ interface INavLink {
   href: string;
 }
 
-export const loggedOutNavLinks: INavLink[] = [
+export const commonNavLinks: INavLink[] = [
   {
     label: "Home",
     href: "/",
@@ -14,8 +14,16 @@ export const loggedOutNavLinks: INavLink[] = [
   },
 ];
 
+export const loggedOutNavLinks: INavLink[] = [
+  ...commonNavLinks,
+  {
+    label: "Become a Host",
+    href: "/become-host",
+  },
+];
+
 export const loggedInNavLinks: INavLink[] = [
-  ...loggedOutNavLinks,
+  ...commonNavLinks,
   {
     label: "My Events",
     href: "/my-events",
