@@ -12,8 +12,8 @@ export const commonProtectedRoutes: RouteConfig = {
   patterns: [],
 };
 
-export const doctorProtectedRoutes: RouteConfig = {
-  patterns: [/^\/doctor/],
+export const hostProtectedRoutes: RouteConfig = {
+  patterns: [/^\/host/],
   exact: [],
 };
 
@@ -22,7 +22,7 @@ export const adminProtectedRoutes: RouteConfig = {
   exact: [],
 };
 
-export const patientProtectedRoutes: RouteConfig = {
+export const userProtectedRoutes: RouteConfig = {
   patterns: [/^\/dashboard/],
   exact: [],
 };
@@ -43,15 +43,15 @@ export const isRouteMatches = (
 
 export const getRouteOwner = (
   pathname: string
-): "ADMIN" | "DOCTOR" | "PATIENT" | "COMMON" | null => {
+): "ADMIN" | "HOST" | "USER" | "COMMON" | null => {
   if (isRouteMatches(pathname, adminProtectedRoutes)) {
     return "ADMIN";
   }
-  if (isRouteMatches(pathname, doctorProtectedRoutes)) {
-    return "DOCTOR";
+  if (isRouteMatches(pathname, hostProtectedRoutes)) {
+    return "HOST";
   }
-  if (isRouteMatches(pathname, patientProtectedRoutes)) {
-    return "PATIENT";
+  if (isRouteMatches(pathname, userProtectedRoutes)) {
+    return "USER";
   }
   if (isRouteMatches(pathname, commonProtectedRoutes)) {
     return "COMMON";
