@@ -1,8 +1,10 @@
+import Hero from "@/components/module/Home/Hero";
+
 const HomePage = () => {
   return (
-    <div className="bg-amber-200">
-      <h1>This is HomePage component</h1>
-    </div>
+    <>
+    <Hero />
+    </>
   );
 };
 
