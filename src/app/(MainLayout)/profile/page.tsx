@@ -1,27 +1,23 @@
-import Image from "next/image";
-import {
-  MapPin,
-  Calendar,
-  Link as LinkIcon,
-  Mail,
-  Star,
-  Heart,
-  Share2,
-  MoreHorizontal,
-  ShieldCheck,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+    Calendar,
+    Heart,
+    Link as LinkIcon,
+    MapPin,
+    ShieldCheck,
+    Star
+} from "lucide-react";
+import Image from "next/image";
 
 const DemoProfile = () => {
   return (
@@ -34,7 +30,7 @@ const DemoProfile = () => {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative -mt-20 z-10">
