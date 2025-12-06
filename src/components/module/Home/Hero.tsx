@@ -31,7 +31,7 @@ const Hero = () => {
 
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-6">
               Connect via <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
                 Real Experiences
               </span>
             </h1>
@@ -86,7 +86,7 @@ const Hero = () => {
           <div className="relative lg:h-[600px] w-full hidden md:block group perspective-1000">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-indigo-100/40 to-transparent blur-3xl -z-10"></div>
 
-            <div className="grid grid-cols-2 gap-4 absolute inset-0 rotate-[-6deg] group-hover:rotate-0 transition-transform duration-700 ease-out p-8 origin-center">
+            <div className="grid grid-cols-2 gap-4 absolute inset-0 -rotate-6 group-hover:rotate-0 transition-transform duration-700 ease-out p-8 origin-center">
               <div className="space-y-4 pt-12">
                 <Card className="relative overflow-hidden border-0 shadow-2xl h-64 transform transition-transform hover:-translate-y-2 rounded-3xl">
                   <Image
@@ -96,7 +96,7 @@ const Hero = () => {
                     className="object-cover scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <Badge
                       variant="secondary"
@@ -116,7 +116,7 @@ const Hero = () => {
                     className="object-cover scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <Badge
                       variant="secondary"
@@ -138,7 +138,7 @@ const Hero = () => {
                     className="object-cover scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <Badge
                       variant="secondary"
@@ -158,7 +158,7 @@ const Hero = () => {
                     className="object-cover scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <Badge
                       variant="secondary"
