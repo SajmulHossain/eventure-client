@@ -23,7 +23,7 @@ const EventCard = () => {
             className="object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80" />
 
           <div className="absolute top-4 left-4 flex gap-2">
             <Badge className="bg-white/20 text-white backdrop-blur-md border-white/20 hover:bg-white/30">

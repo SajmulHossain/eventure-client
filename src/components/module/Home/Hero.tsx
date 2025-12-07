@@ -1,206 +1,155 @@
 import Image from "next/image";
-import { Search, MapPin, Users, Calendar, Star } from "lucide-react";
+import { ArrowRight, Play, Star, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-slate-50 selection:bg-indigo-500 selection:text-white pb-20 pt-20 lg:pt-32">
-      <div className="absolute top-0 -left-4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-0 -right-4 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-32 left-20 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    <section className="relative w-full overflow-hidden bg-white pt-16 md:pt-20 lg:pt-24 pb-32">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-linear-to-br from-indigo-100 to-purple-100 rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-linear-to-tr from-blue-50 to-pink-50 rounded-full blur-3xl opacity-60" />
+      </div>
 
-      <div className="container relative mx-auto px-4 md:px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          <div className="flex flex-col justify-center text-center lg:text-left z-10">
-            <div className="flex justify-center lg:justify-start mb-6">
-              <Badge
-                variant="secondary"
-                className="px-4 py-1.5 text-sm rounded-full bg-white border-indigo-100 text-slate-600 shadow-sm hover:bg-white gap-2"
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
-                </span>
-                Live events happening now
-              </Badge>
-            </div>
+      <div className="container relative mx-auto px-4 md:px-6 z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-8">
+            <Badge
+              variant="outline"
+              className="w-fit px-4 py-1.5 rounded-full border-indigo-200 bg-indigo-50/50 text-indigo-700 text-sm font-medium backdrop-blur-sm gap-2 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+            >
+              <Sparkles className="w-3.5 h-3.5 fill-indigo-700" />
+              <span>The #1 Platform for Offline Connections</span>
+            </Badge>
 
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-6">
-              Connect via <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
-                Real Experiences
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1] animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100">
+              Less Scrolling. <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">
+                More Living.
               </span>
             </h1>
 
-            <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Don&apos;t let a lack of company stop you. Discover concerts, hikes,
-              and meetups in your area. Find your tribe and turn online matches
-              into offline memories.
+            <p className="text-lg md:text-xl text-slate-600 max-w-xl leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+              Stop waiting for the <q>right time</q> to go out. Join a community
+              of explorers, creators, and hobbyists making memories in the real
+              world today.
             </p>
 
-            <div className="w-full max-w-md mx-auto lg:mx-0 bg-white p-2 rounded-2xl shadow-xl border border-slate-100 flex flex-col sm:flex-row gap-2">
-              <div className="relative flex-1 group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
-                <Input
-                  type="text"
-                  placeholder="Hiking, Gaming..."
-                  className="pl-9 h-12 border-0 shadow-none bg-slate-50 focus-visible:ring-0 focus-visible:bg-white rounded-xl transition-all"
-                />
-              </div>
-              <div className="relative flex-1 group">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
-                <Input
-                  type="text"
-                  placeholder="City or Zip"
-                  className="pl-9 h-12 border-0 shadow-none bg-slate-50 focus-visible:ring-0 focus-visible:bg-white rounded-xl transition-all"
-                />
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
               <Button
                 size="lg"
-                className="h-12 px-8 rounded-xl bg-slate-900 hover:bg-indigo-600 shadow-lg shadow-indigo-200 transition-all duration-300"
+                className="h-14 px-8 rounded-full bg-slate-900 text-white hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 text-base"
               >
-                Search
+                <Link href={"/events"}>Explore Events</Link>
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 rounded-full border-2 border-slate-200 hover:bg-slate-50 text-slate-700 text-base"
+              >
+                <Play className="mr-2 w-4 h-4 fill-slate-700" />
+                Explore more
               </Button>
             </div>
 
-            <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm font-medium text-slate-500">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-indigo-50 rounded-lg">
-                  <Users className="w-5 h-5 text-indigo-500" />
+            <div className="pt-4 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-400">
+              <div className="flex -space-x-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <Avatar
+                    key={i}
+                    className="w-12 h-12 border-4 border-white ring-1 ring-slate-100"
+                  >
+                    <AvatarImage
+                      src={`https://i.pravatar.cc/100?img=${20 + i}`}
+                    />
+                    <AvatarFallback>U{i}</AvatarFallback>
+                  </Avatar>
+                ))}
+                <div className="w-12 h-12 rounded-full border-4 border-white bg-indigo-50 flex items-center justify-center text-xs font-bold text-indigo-600 ring-1 ring-slate-100">
+                  +2k
                 </div>
-                <span>2k+ Active Groups</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-purple-50 rounded-lg">
-                  <Calendar className="w-5 h-5 text-purple-500" />
+              <div className="text-left">
+                <div className="flex items-center gap-1 text-amber-500">
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
                 </div>
-                <span>500+ Daily Events</span>
+                <p className="text-sm font-medium text-slate-600">
+                  from happy members
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="relative lg:h-[600px] w-full hidden md:block group perspective-1000">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-indigo-100/40 to-transparent blur-3xl -z-10"></div>
+          <div className="relative mx-auto w-full max-w-[500px] lg:max-w-none perspective-1000 animate-in fade-in zoom-in duration-1000 delay-200">
+            <div className="relative aspect-4/5 md:aspect-square lg:aspect-10/8 rounded-[40px] overflow-hidden shadow-2xl shadow-indigo-200/50">
+              <Image
+                src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop"
+                alt="Friends laughing at a dinner party"
+                fill
+                priority
+                className="object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
 
-            <div className="grid grid-cols-2 gap-4 absolute inset-0 -rotate-6 group-hover:rotate-0 transition-transform duration-700 ease-out p-8 origin-center">
-              <div className="space-y-4 pt-12">
-                <Card className="relative overflow-hidden border-0 shadow-2xl h-64 transform transition-transform hover:-translate-y-2 rounded-3xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=600"
-                    alt="Concert"
-                    fill
-                    className="object-cover scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <Badge
-                      variant="secondary"
-                      className="bg-indigo-500/90 text-white border-none hover:bg-indigo-600 mb-2"
-                    >
-                      Music
-                    </Badge>
-                    <p className="font-bold">Indie Night</p>
+              <div className="absolute bottom-8 left-8 right-8">
+                <div className="bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-xl border border-white/20">
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <Badge
+                        variant="secondary"
+                        className="bg-orange-100 text-orange-700 hover:bg-orange-100 mb-2"
+                      >
+                        Happening Tonight
+                      </Badge>
+                      <h3 className="font-bold text-slate-900 text-lg">
+                        Rooftop Social & Drinks
+                      </h3>
+                    </div>
+                    <div className="bg-indigo-50 p-2 rounded-2xl text-center min-w-[60px]">
+                      <span className="block text-xs font-bold text-indigo-400 uppercase">
+                        OCT
+                      </span>
+                      <span className="block text-xl font-extrabold text-indigo-600">
+                        24
+                      </span>
+                    </div>
                   </div>
-                </Card>
-
-                <Card className="relative overflow-hidden border-0 shadow-2xl h-48 transform transition-transform hover:-translate-y-2 rounded-3xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=600"
-                    alt="Hiking"
-                    fill
-                    className="object-cover scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <Badge
-                      variant="secondary"
-                      className="bg-emerald-500/90 text-white border-none hover:bg-emerald-600 mb-2"
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-slate-500 font-medium">
+                      12 spots left
+                    </p>
+                    <Button
+                      size="sm"
+                      className="rounded-full bg-indigo-600 hover:bg-indigo-700 h-9"
                     >
-                      Outdoors
-                    </Badge>
-                    <p className="font-bold">Sunrise Hike</p>
+                      Join Now
+                    </Button>
                   </div>
-                </Card>
-              </div>
-
-              <div className="space-y-4">
-                <Card className="relative overflow-hidden border-0 shadow-2xl h-48 transform transition-transform hover:-translate-y-2 rounded-3xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1605901309584-818e25960b8f?auto=format&fit=crop&q=80&w=600"
-                    alt="Gaming"
-                    fill
-                    className="object-cover scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <Badge
-                      variant="secondary"
-                      className="bg-purple-500/90 text-white border-none hover:bg-purple-600 mb-2"
-                    >
-                      Gaming
-                    </Badge>
-                    <p className="font-bold">Board Game Cafe</p>
-                  </div>
-                </Card>
-
-                <Card className="relative overflow-hidden border-0 shadow-2xl h-64 transform transition-transform hover:-translate-y-2 rounded-3xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600"
-                    alt="Friends"
-                    fill
-                    className="object-cover scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <Badge
-                      variant="secondary"
-                      className="bg-pink-500/90 text-white border-none hover:bg-pink-600 mb-2"
-                    >
-                      Social
-                    </Badge>
-                    <p className="font-bold">City Brunch</p>
-                  </div>
-                </Card>
+                </div>
               </div>
             </div>
 
-            <Card className="absolute top-20 right-10 bg-white/90 backdrop-blur-md border-white/20 p-4 rounded-2xl shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-300 z-20">
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-3">
-                  <Avatar className="border-2 border-white w-10 h-10">
-                    <AvatarImage src="https://i.pravatar.cc/100?img=12" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="border-2 border-white w-10 h-10">
-                    <AvatarImage src="https://i.pravatar.cc/100?img=32" />
-                    <AvatarFallback>AB</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="border-2 border-white w-10 h-10">
-                    <AvatarImage src="https://i.pravatar.cc/100?img=41" />
-                    <AvatarFallback>CK</AvatarFallback>
-                  </Avatar>
+            <div className="absolute -top-12 -right-12 w-24 h-24 bg-yellow-300 rounded-full blur-2xl opacity-40 animate-pulse" />
+            <div className="absolute top-10 -right-6 md:-right-12 bg-white p-4 rounded-2xl shadow-lg border border-slate-100 hidden md:block animate-bounce duration-3000">
+              <div className="flex items-center gap-3">
+                <div className="bg-green-100 p-2 rounded-full">
+                  <Sparkles className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <Star className="w-3 h-3 text-orange-400 fill-orange-400" />
-                    <span className="text-xs font-bold text-slate-800">
-                      4.9/5
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 font-medium">
-                    Trusted Hosts
+                  <p className="font-bold text-slate-900">New Friend!</p>
+                  <p className="text-xs text-slate-500">
+                    Sarah joined &quot;Hiking&quot;
                   </p>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
