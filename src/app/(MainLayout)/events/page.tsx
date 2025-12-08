@@ -16,6 +16,7 @@ import Image from "next/image";
 
 const EventCard = async () => {
   const events = await getEvents();
+  console.log(events);
   return (
     <section className="page">
       {events.length ? (
