@@ -4,6 +4,7 @@ import { NavigationSheet } from "@/components/shared/Navbar/navigation-sheet";
 import Logo from "@/assets/logo/Logo";
 import Link from "next/link";
 import { getMe } from "@/services/auth/getMe";
+import LogoutBtn from "../LogoutBtn";
 
 const Navbar = async () => {
   const user = await getMe();
@@ -17,9 +18,12 @@ const Navbar = async () => {
 
         <div className="flex items-center gap-3">
           {user ? (
-            <Button asChild className="rounded-full">
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
+            <>
+              <Button asChild className="rounded-full">
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+              <LogoutBtn className="rounded-full" />
+            </>
           ) : (
             <>
               <Button

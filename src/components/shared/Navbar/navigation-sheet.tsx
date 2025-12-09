@@ -12,6 +12,7 @@ import { getMe } from "@/services/auth/getMe";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import LogoutBtn from "../LogoutBtn";
 
 
 export const NavigationSheet = async () => {
@@ -34,7 +35,7 @@ export const NavigationSheet = async () => {
         <Separator />
 
         {user ? (
-          <Button variant={"destructive"}>Logout</Button>
+          <LogoutBtn />
         ) : (
           <Button asChild variant="outline">
             <Link href="/login">Log In</Link>
