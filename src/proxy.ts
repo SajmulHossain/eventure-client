@@ -8,6 +8,7 @@ import {
   getRouteOwner,
   isAuthRoute,
 } from "./lib/auth.utils";
+import envConfig from "./config/env.config";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -18,7 +19,7 @@ export async function proxy(request: NextRequest) {
   if (accessToken) {
     const verifiedToken: JwtPayload | string = jwt.verify(
       accessToken,
-      process.env.JWT_SECRET as string
+      envConfig.access_token_secret
     );
 
     if (typeof verifiedToken === "string") {

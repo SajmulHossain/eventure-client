@@ -27,6 +27,7 @@ export const loginUser = async (
       email: formData.get("email"),
       password: formData.get("password"),
     };
+
     const validatedData = loginZodSchema.safeParse(loginData);
 
     if (!validatedData.success) {
@@ -44,6 +45,8 @@ export const loginUser = async (
         "Content-Type": "application/json",
       },
     });
+
+    console.log(res);
 
     const cookieHeaders = res.headers.getSetCookie();
 

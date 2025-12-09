@@ -4,12 +4,23 @@ interface IEnv {
   refresh_token_secret: string;
 }
 
-const envs = ["NEXT_PUBLIC_SERVER_API_URL", "ACCESS_TOKEN_SECRET", "REFRESH_TOKEN_SECRET"];
+const envs = [
+  "NEXT_PUBLIC_SERVER_API_URL",
+  "ACCESS_TOKEN_SECRET",
+  "REFRESH_TOKEN_SECRET",
+];
 
 const loadEnv = (): IEnv => {
-  envs.forEach((env) => {
-    if (!process.env[env]) {
-      throw new Error(env + " not found!!! at env config...");
+  envs.forEach((envVar) => {
+    if (!process.env[envVar]) {
+      console.log(
+        "vitore achi bos",
+        !process.env[envVar],
+        process.env[envVar],
+        envVar,
+        process.env.NEXT_PUBLIC_SERVER_API_URL
+      );
+      throw new Error(envVar + " not found!!! at env config...");
     }
   });
 

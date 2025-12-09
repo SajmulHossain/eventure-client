@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -11,10 +12,12 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import envConfig from "@/config/env.config";
 import { cn } from "@/lib/utils";
 import { loginUser } from "@/services/auth/loginUser";
 import Link from "next/link";
@@ -27,11 +30,25 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [state, formAction, isPending] = useActionState(loginUser, null);
 
+  console.log(envConfig.next_public_server_api_url);
+
     useEffect(() => {
       if (state && !state?.success && state?.message) {
         toast.error(state.message);
       }
     }, [state]);
+
+    console.log(state, "state");
+
+      const getFieldErrors = (fieldName: string) => {
+        if (state?.errors) {
+          const error = state.errors.find(
+            (error: any) => error.field === fieldName
+          );
+
+          return error?.message;
+        }
+      };
   
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -47,13 +64,21 @@ export function LoginForm({
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" type="email" placeholder="m@example.com" />
+                <Input name="email" id="email" type="email" placeholder="m@example.com" />
+                {getFieldErrors("email") && (
+                  <FieldError>{getFieldErrors("email")}</FieldError>
+                )}
               </Field>
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                 </div>
-                <Input id="password" type="password" placeholder="*******" />
+                <Input name="password" id="password" type="password" placeholder="*******" />
+                {getFieldErrors("password") && (
+                  <FieldError className="text-red-600/70">
+                    {getFieldErrors("password")}
+                  </FieldError>
+                )}
               </Field>
               <Field>
                 <Button disabled={isPending} type="submit">
