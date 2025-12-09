@@ -11,18 +11,11 @@ const envs = [
 ];
 
 const loadEnv = (): IEnv => {
-  envs.forEach((envVar) => {
-    if (!process.env[envVar]) {
-      console.log(
-        "vitore achi bos",
-        !process.env[envVar],
-        process.env[envVar],
-        envVar,
-        process.env.NEXT_PUBLIC_SERVER_API_URL
-      );
-      throw new Error(envVar + " not found!!! at env config...");
-    }
-  });
+  // envs.forEach((env) => {
+  //   if (!process.env[env]) {
+  //     throw new Error(env + " not found!!! at env config...");
+  //   }
+  // });
 
   return envs.reduce(
     (acc, env) => ({

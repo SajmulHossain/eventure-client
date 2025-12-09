@@ -1,5 +1,3 @@
-"use server";
-
 import envConfig from "@/config/env.config";
 import { getCookie } from "@/services/auth/token";
 
