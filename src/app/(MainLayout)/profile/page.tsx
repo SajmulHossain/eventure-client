@@ -1,12 +1,11 @@
-import ProfileComponent from "@/components/module/Profile/ProfileComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,17 +13,18 @@ import { getNameLetters } from "@/lib/getNameLetters";
 import { getMe } from "@/services/auth/getMe";
 import { IUser } from "@/types";
 import {
-    Calendar,
-    Heart,
-    Link as LinkIcon,
-    MapPin,
-    ShieldCheck,
-    Star
+  Calendar,
+  Heart,
+  Link as LinkIcon,
+  MapPin,
+  ShieldCheck,
+  Star
 } from "lucide-react";
 import Image from "next/image";
+import {format} from 'date-fns';
 
 const DemoProfile = async () => {
-  const {bio, email, interests, location, name, role, profile_photo,} = await getMe() as IUser;
+  const {bio, email, interests, location, name, role, profile_photo, createdAt } = await getMe() as IUser;
 
   return (
     <div className="min-h-screen bg-slate-50/50 pb-20">
@@ -46,8 +46,10 @@ const DemoProfile = async () => {
               <CardContent className="pt-6 text-center space-y-4">
                 <div className="relative inline-block">
                   <Avatar className="w-32 h-32 border-4 border-white shadow-lg mx-auto">
-                    <AvatarImage src={profile_photo+"s"} className="object-cover" />
-                    <AvatarFallback>{getNameLetters(name)}</AvatarFallback>
+                    <AvatarImage src={profile_photo} className="object-cover" />
+                    <AvatarFallback className="font-bold text-lg">
+                      {getNameLetters(name)}
+                    </AvatarFallback>
                   </Avatar>
                   <div
                     className="absolute bottom-1 right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white"
@@ -57,12 +59,14 @@ const DemoProfile = async () => {
 
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 flex items-center justify-center gap-2">
-                    Sarah Jenkins
+                    {name}
                     <ShieldCheck className="w-5 h-5 text-blue-500" />
                   </h2>
-                  <p className="text-slate-500 font-medium">
-                    Community Host & Hiker
-                  </p>
+                  {role === "ADMIN" ||
+                    (role === "HOST" && (
+                      <p className="text-slate-500 font-medium">{role}</p>
+                    ))}
+                  <p className="text-slate-500 font-medium">{bio}</p>
                 </div>
 
                 <div className="flex items-center justify-center gap-1 text-amber-500 font-bold">
@@ -87,17 +91,14 @@ const DemoProfile = async () => {
                 <div className="space-y-3 text-sm text-left px-2">
                   <div className="flex items-center gap-3 text-slate-600">
                     <MapPin className="w-4 h-4 text-slate-400" />
-                    <span>San Francisco, CA</span>
+                    <span>{location}</span>
                   </div>
                   <div className="flex items-center gap-3 text-slate-600">
                     <Calendar className="w-4 h-4 text-slate-400" />
-                    <span>Joined March 2024</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-600">
-                    <LinkIcon className="w-4 h-4 text-slate-400" />
-                    <a href="#" className="text-indigo-600 hover:underline">
-                      sarah-hikes.com
-                    </a>
+                    <span>
+                      Joined{" "}
+                      {format(new Date(createdAt || new Date()), "MMMM yy")}
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -110,12 +111,15 @@ const DemoProfile = async () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                >
-                  Hiking
-                </Badge>
+                {interests.map((interest) => (
+                  <Badge
+                    key={interest}
+                    variant="secondary"
+                    className="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  >
+                    {interest}
+                  </Badge>
+                ))}
                 <Badge
                   variant="secondary"
                   className="px-3 py-1 bg-purple-50 text-purple-700 hover:bg-purple-100"
@@ -301,17 +305,17 @@ const DemoProfile = async () => {
                       <CardContent className="p-6">
                         <h3 className="text-lg font-semibold mb-4">About Me</h3>
                         <p className="text-slate-600 leading-relaxed mb-6">
-                          Hey there! I&apos;m Sarah, a software engineer by day and
-                          an avid explorer by weekend. I moved to San Francisco
-                          last year and realized how hard it can be to find
-                          people to do specific activities with.
+                          Hey there! I&apos;m Sarah, a software engineer by day
+                          and an avid explorer by weekend. I moved to San
+                          Francisco last year and realized how hard it can be to
+                          find people to do specific activities with.
                         </p>
                         <p className="text-slate-600 leading-relaxed mb-6">
                           I love organizing small group hikes and coffee tasting
                           sessions. My events are usually laid back,
                           beginner-friendly, and focused on good conversation.
-                          If you&apos;re new to the city or just looking to expand
-                          your circle, come join one of my meetups!
+                          If you&apos;re new to the city or just looking to
+                          expand your circle, come join one of my meetups!
                         </p>
 
                         <h3 className="text-lg font-semibold mb-4">

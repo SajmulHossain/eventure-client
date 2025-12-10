@@ -10,6 +10,8 @@ export interface IUser {
   auths: IAuthProvider[];
   role: UserRole;
   email: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IAuthProvider {
