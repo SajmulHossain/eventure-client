@@ -1,3 +1,4 @@
+import ProfileComponent from "@/components/module/Profile/ProfileComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getNameLetters } from "@/lib/getNameLetters";
+import { getMe } from "@/services/auth/getMe";
+import { IUser } from "@/types";
 import {
     Calendar,
     Heart,
@@ -19,12 +23,14 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-const DemoProfile = () => {
+const DemoProfile = async () => {
+  const {bio, email, interests, location, name, role, profile_photo,} = await getMe() as IUser;
+
   return (
     <div className="min-h-screen bg-slate-50/50 pb-20">
       <div className="relative h-[250px] md:h-[350px] w-full overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2000"
+          src={profile_photo}
           alt="Cover"
           fill
           className="object-cover"
@@ -40,8 +46,8 @@ const DemoProfile = () => {
               <CardContent className="pt-6 text-center space-y-4">
                 <div className="relative inline-block">
                   <Avatar className="w-32 h-32 border-4 border-white shadow-lg mx-auto">
-                    <AvatarImage src="https://i.pravatar.cc/300?img=32" />
-                    <AvatarFallback>SJ</AvatarFallback>
+                    <AvatarImage src={profile_photo+"s"} className="object-cover" />
+                    <AvatarFallback>{getNameLetters(name)}</AvatarFallback>
                   </Avatar>
                   <div
                     className="absolute bottom-1 right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white"

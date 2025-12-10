@@ -21,7 +21,7 @@ export const getMe = async() : Promise<IUser | any> => {
           }
         }
 
-        return result.data;
+        return result.data as IUser;
     } catch (error) {
         console.log(error);
         return null;
