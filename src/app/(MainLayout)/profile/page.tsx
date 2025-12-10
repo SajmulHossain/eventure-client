@@ -10,21 +10,21 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getNameLetters } from "@/lib/getNameLetters";
+import { getInterestColor } from "@/lib/getRandomColor";
 import { getMe } from "@/services/auth/getMe";
 import { IUser } from "@/types";
+import { format } from 'date-fns';
 import {
   Calendar,
   Heart,
-  Link as LinkIcon,
   MapPin,
   ShieldCheck,
   Star
 } from "lucide-react";
 import Image from "next/image";
-import {format} from 'date-fns';
 
 const DemoProfile = async () => {
-  const {bio, email, interests, location, name, role, profile_photo, createdAt } = await getMe() as IUser;
+  const {bio, interests, location, name, role, profile_photo, createdAt } = await getMe() as IUser;
 
   return (
     <div className="min-h-screen bg-slate-50/50 pb-20">
@@ -111,39 +111,17 @@ const DemoProfile = async () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                {interests.map((interest) => (
-                  <Badge
-                    key={interest}
-                    variant="secondary"
-                    className="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                  >
-                    {interest}
-                  </Badge>
-                ))}
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 bg-purple-50 text-purple-700 hover:bg-purple-100"
-                >
-                  Photography
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 bg-orange-50 text-orange-700 hover:bg-orange-100"
-                >
-                  Coffee
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100"
-                >
-                  Tech
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 bg-pink-50 text-pink-700 hover:bg-pink-100"
-                >
-                  Yoga
-                </Badge>
+                {interests.map(
+                  (interest) => (
+                    <Badge
+                      key={interest}
+                      variant="secondary"
+                      className={`px-3 py-1 ${getInterestColor()}`}
+                    >
+                      {interest}
+                    </Badge>
+                  )
+                )}
               </CardContent>
             </Card>
           </div>
