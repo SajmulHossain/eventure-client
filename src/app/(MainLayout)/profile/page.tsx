@@ -10,7 +10,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getNameLetters } from "@/lib/getNameLetters";
-import { getInterestColor } from "@/lib/getRandomColor";
 import { getMe } from "@/services/auth/getMe";
 import { IUser } from "@/types";
 import { format } from 'date-fns';
@@ -24,7 +23,7 @@ import {
 import Image from "next/image";
 
 const DemoProfile = async () => {
-  const {bio, interests, location, name, role, profile_photo, createdAt } = await getMe() as IUser;
+  const { interests, location, name, role, profile_photo, createdAt, bio } = await getMe() as IUser;
 
   return (
     <div className="min-h-screen bg-slate-50/50 pb-20">
@@ -116,7 +115,7 @@ const DemoProfile = async () => {
                     <Badge
                       key={interest}
                       variant="secondary"
-                      className={`px-3 py-1 ${getInterestColor()}`}
+                      className={`px-3 py-1}`}
                     >
                       {interest}
                     </Badge>

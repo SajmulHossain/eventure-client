@@ -9,7 +9,7 @@ import LogoutBtn from "../LogoutBtn";
 const Navbar = async () => {
   const user = await getMe();
   return (
-    <header className="fixed top-6 inset-x-4 h-16 bg-background border mx-auto rounded-full max-w-7xl">
+    <header className="fixed top-6 inset-x-4 h-16 bg-background border mx-auto rounded-full max-w-7xl z-50">
       <div className="h-full flex items-center justify-between mx-auto px-4">
         <Logo />
 
