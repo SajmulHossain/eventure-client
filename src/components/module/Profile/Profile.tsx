@@ -39,7 +39,7 @@ const ProfileWrapper = ({user, isOwner}: IProps) => {
                   <Avatar className="w-32 h-32 border-4 border-white shadow-lg mx-auto">
                     <AvatarImage src={profile_photo} className="object-cover" />
                     <AvatarFallback className="font-bold text-lg">
-                      {getNameLetters(name)}
+                      {getNameLetters(name || "")}
                     </AvatarFallback>
                   </Avatar>
                   <div
@@ -101,7 +101,7 @@ const ProfileWrapper = ({user, isOwner}: IProps) => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                {interests.map((interest: string) => (
+                {(interests || []).map((interest: string) => (
                   <Badge
                     key={interest}
                     variant="secondary"
