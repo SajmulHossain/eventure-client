@@ -8,6 +8,7 @@ export interface IEvent {
   joinning_fee: number;
   status: EventStatus;
   type: string;
+  host_id: string;
 }
 
 export enum EventStatus {

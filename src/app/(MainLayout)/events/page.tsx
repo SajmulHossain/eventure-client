@@ -1,4 +1,3 @@
-"use server";
 import NoDataFound from "@/components/shared/NoDataFound";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";

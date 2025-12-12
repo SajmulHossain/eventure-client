@@ -45,6 +45,7 @@ const adminNavItems: NavSection[] = [
   {
     title: "Event Management",
     items: [
+      
       {
         title: "All Events",
         href: "/admin/dashboard/events",
@@ -56,6 +57,17 @@ const adminNavItems: NavSection[] = [
 ];
 
 const hostNavItems: NavSection[] = [
+  {
+    title: "Event Management",
+    items: [
+      {
+        title: "Create Event",
+        href: "/host/dashboard/create-event",
+        icon: "PlusIcon",
+        roles: ["HOST"],
+      }
+    ]
+  },
   {
     title: "General",
     items: [
