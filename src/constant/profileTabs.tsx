@@ -12,5 +12,3 @@ export const profileTabs: { value: string; label: string }[] = [
     label: "Reviews",
   },
 ];
-
-
