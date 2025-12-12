@@ -190,7 +190,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                 )}
               </Field>
               <Field>
-                <Button type="submit">
+                <Button disabled={isPending} type="submit">
                   {isPending ? "In Progress..." : "Register"}
                 </Button>
                 <Button variant="outline" type="button">

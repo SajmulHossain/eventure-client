@@ -1,3 +1,5 @@
+"use server";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { serverFetch } from "@/lib/server-fetch";
 import z from "zod";
@@ -10,7 +12,7 @@ const userRegisterZodSchema = z.object({
   profile_photo: z.file({ error: "Profile Photo is required." }),
   bio: z
     .string({ error: "Bio is required" })
-    .min(8, { error: "Bio should written atleast 20 characters." }),
+    .min(8, { error: "Bio should written atleast 8 characters." }),
   interests: z
     .array(z.string(), "Interests is required")
     .min(1, "Interests is required!"),
@@ -64,7 +66,7 @@ export const registerUser = async (
     newFormData.append("file", photo);
 
     const result = await serverFetch
-      .post("/register", {
+      .post("/auth/register", {
         body: newFormData,
       })
       .then((res) => res.json());
@@ -75,6 +77,9 @@ export const registerUser = async (
 
     return result;
   } catch (error: any) {
+    if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+      throw error;
+    }
     console.log(error);
     return {
       success: false,

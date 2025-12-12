@@ -23,9 +23,9 @@ export const NavMenu = async (props: ComponentProps<typeof NavigationMenu>) => {
         {[
           ...(user
             ? user.role === "HOST"
-              ? [...loggedInNavLinks, ...hostLoggedInNavLinks]
+              ? hostLoggedInNavLinks
               : user.role === "ADMIN"
-              ? [...loggedInNavLinks, ...adminLoggedInNavLinks]
+              ? adminLoggedInNavLinks
               : loggedInNavLinks
             : loggedOutNavLinks),
         ].map(({ href, label }) => (

@@ -37,7 +37,7 @@ export function UploadPhoto({
   return (
     <FileUpload
       maxFiles={1}
-      maxSize={5 * 1024 * 1024}
+      maxSize={1 * 1024 * 1024}
       className="w-full"
       value={files}
       onValueChange={setFiles}
