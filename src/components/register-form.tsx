@@ -14,32 +14,48 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "./ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "./ui/field";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
   const [photo, setPhoto] = useState<File | null>(null);
-  const [state, formAction, isPending] = useActionState(registerUser.bind(null, photo!), null);
+  const [state, formAction, isPending] = useActionState(
+    registerUser.bind(null, photo!),
+    null
+  );
 
-      useEffect(() => {
-        if (state && !state?.success && state?.message) {
-          toast.error(state.message);
-        }
-      }, [state]);
+  useEffect(() => {
+    if (state && !state?.success && state?.message) {
+      toast.error(state.message);
+    }
+  }, [state]);
 
-      const getFieldErrors = (fieldName: string) => {
-        if (state?.errors) {
-          const error = state.errors.find(
-            (error: any) => error.field === fieldName
-          );
+  const getFieldErrors = (fieldName: string) => {
+    if (state?.errors) {
+      const error = state.errors.find(
+        (error: any) => error.field === fieldName
+      );
 
-          return error?.message;
-        }
-      };
+      return error?.message;
+    }
+  };
 
-      console.log(state);
+  console.log(state);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -126,6 +142,27 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                 {getFieldErrors("interests") && (
                   <FieldError className="text-red-600/70">
                     {getFieldErrors("interests")}
+                  </FieldError>
+                )}
+              </Field>
+              <Field>
+                <div className="flex items-center">
+                  <FieldLabel htmlFor="role">
+                    Role
+                  </FieldLabel>
+                </div>
+                <Select name="role" defaultValue={state?.previouseData?.role}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="HOST">Host</SelectItem>
+                    <SelectItem value="USER">User</SelectItem>
+                  </SelectContent>
+                </Select>
+                {getFieldErrors("role") && (
+                  <FieldError className="text-red-600/70">
+                    {getFieldErrors("role")}
                   </FieldError>
                 )}
               </Field>

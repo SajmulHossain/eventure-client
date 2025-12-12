@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { serverFetch } from "@/lib/server-fetch";
 import z from "zod";
+import { loginUser } from "./loginUser";
 
 const userRegisterZodSchema = z.object({
   name: z
@@ -9,7 +11,9 @@ const userRegisterZodSchema = z.object({
   bio: z
     .string({ error: "Bio is required" })
     .min(8, { error: "Bio should written atleast 20 characters." }),
-  interests: z.array(z.string(), { error: "Interests are required" }),
+  interests: z
+    .array(z.string(), "Interests is required")
+    .min(1, "Interests is required!"),
   location: z
     .string({ error: "Location is required" })
     .min(3, "Location should atleast 3 characters long."),
@@ -17,6 +21,7 @@ const userRegisterZodSchema = z.object({
   password: z
     .string({ error: "Password is required" })
     .min(6, { message: "Password must be at least 6 characters long" }),
+  role: z.enum(["ADMIN", "HOST", "USER"], "Role is required!"),
 });
 
 export const registerUser = async (
@@ -24,23 +29,60 @@ export const registerUser = async (
   state: z.infer<typeof userRegisterZodSchema>,
   formData: FormData
 ): Promise<any> => {
-  const data: any = Object.fromEntries(formData);
-  const interests = data.interests.split(",");
+  try {
+    const data: any = Object.fromEntries(formData);
+    const interests = data.interests
+      .split(",")
+      .map((i: string) => i.trim())
+      .filter((i: string) => i !== "");
+    console.log(interests);
 
-  const isValidData = userRegisterZodSchema.safeParse({
-    profile_photo,
-    interests,
-    ...data
-  });
+    const isValidData = userRegisterZodSchema.safeParse({
+      ...data,
+      profile_photo,
+      interests,
+    });
 
-  if (!isValidData.success) {
+    if (!isValidData.success) {
+      return {
+        errors: isValidData.error.issues.map((issue) => ({
+          field: issue.path[0],
+          message: issue.message,
+        })),
+
+        previouseData: data,
+      };
+    }
+
+    const { profile_photo: photo, ...rest } = isValidData.data;
+
+    const newFormData = new FormData();
+
+    const body = JSON.stringify(rest);
+
+    newFormData.append("data", body);
+    newFormData.append("file", photo);
+
+    const result = await serverFetch
+      .post("/register", {
+        body: newFormData,
+      })
+      .then((res) => res.json());
+
+    if (result?.success) {
+      await loginUser(state, formData);
+    }
+
+    return result;
+  } catch (error: any) {
+    console.log(error);
     return {
-      errors: isValidData.error.issues.map((issue) => ({
-        field: issue.path[0],
-        message: issue.message,
-      })),
-
-      previouseData: data,
+      success: false,
+      error,
+      message:
+        process.env.NODE_ENV === "development"
+          ? error?.message
+          : "Login Failed",
     };
   }
 };
