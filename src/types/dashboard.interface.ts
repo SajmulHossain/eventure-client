@@ -1,10 +1,9 @@
-import { LucideIcon } from "lucide-react";
 import { UserRole } from "./user.interface";
 
 export interface NavItem {
   title: string;
   href: string;
-  icon: LucideIcon;
+  icon: string;
   badge?: string | number;
   description?: string;
   roles: UserRole[];

@@ -1,13 +1,4 @@
 import { NavSection, UserRole } from "@/types";
-import {
-    DollarSign,
-    HospitalIcon,
-    LayoutDashboard,
-    PlusIcon,
-    PlusSquare,
-    Shield,
-    User,
-} from "lucide-react";
 import { getDefaultDashboardRoutes } from "./auth.utils";
 
 export const getCommonNav = (role: UserRole): NavSection[] => {
@@ -19,7 +10,7 @@ export const getCommonNav = (role: UserRole): NavSection[] => {
         {
           title: "Dashboard",
           href: dashboard,
-          icon: LayoutDashboard,
+          icon: "LayoutDashboard",
           roles: ["USER", "HOST", "ADMIN"],
         },
       ],
@@ -34,19 +25,19 @@ const adminNavItems: NavSection[] = [
       {
         title: "Admin",
         href: "/admin/dashboard/admin",
-        icon: Shield,
+        icon: "Shield",
         roles: ["ADMIN"],
       },
       {
         title: "Host",
         href: "/admin/dashboard/host",
-        icon: HospitalIcon,
+        icon: "HospitalIcon",
         roles: ["ADMIN"],
       },
       {
         title: "Users",
         href: "/admin/dashboard/users",
-        icon: User,
+        icon: "User",
         roles: ["ADMIN"],
       },
     ],
@@ -57,7 +48,7 @@ const adminNavItems: NavSection[] = [
       {
         title: "All Events",
         href: "/admin/dashboard/events",
-        icon: PlusSquare,
+        icon: "PlusSquare",
         roles: ["ADMIN"],
       },
     ],
@@ -71,19 +62,19 @@ const hostNavItems: NavSection[] = [
       {
         title: "Hosted Events",
         href: "/host/dashboard/events",
-        icon: PlusIcon,
+        icon: "PlusIcon",
         roles: ["HOST"],
       },
       {
         title: "Participants",
         href: "/host/dashboard/participants",
-        icon: PlusIcon,
+        icon: "PlusIcon",
         roles: ["HOST"],
       },
       {
         title: "Payments",
         href: "/host/dashboard/payments",
-        icon: DollarSign,
+        icon: "DollarSign",
         roles: ["HOST"],
       },
     ],
@@ -97,19 +88,19 @@ const userNavItems: NavSection[] = [
       {
         title: "Joined Events (Upcoming)",
         href: "/host/dashboard/joined-events",
-        icon: PlusIcon,
+        icon: "PlusIcon",
         roles: ["USER"],
       },
       {
         title: "Joined Events (Past)",
         href: "/host/dashboard/past-events",
-        icon: PlusIcon,
+        icon: "PlusIcon",
         roles: ["USER"],
       },
       {
         title: "Saved Events",
         href: "/host/dashboard/saved-events",
-        icon: PlusIcon,
+        icon: "PlusIcon",
         roles: ["USER"],
       },
     ],
