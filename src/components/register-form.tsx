@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ComponentProps } from "react";
+import { UploadPhoto } from "./module/RegisterForm/UploadProfilePicture";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -27,11 +28,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Name</FieldLabel>
-                <Input
-                  name="name"
-                  id="name"
-                  placeholder="John Doe"
-                />
+                <Input name="name" id="name" placeholder="John Doe" />
                 {/* {getFieldErrors("email") && (
                     <FieldError>{getFieldErrors("email")}</FieldError>
                   )} */}
@@ -63,6 +60,12 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                       {getFieldErrors("password")}
                     </FieldError>
                   )} */}
+              </Field>
+              <Field>
+                <div className="flex items-center">
+                  <FieldLabel htmlFor="photo">Photo</FieldLabel>
+                </div>
+                <UploadPhoto />
               </Field>
               <Field>
                 <Button type="submit">
