@@ -37,7 +37,6 @@ export const registerUser = async (
       .split(",")
       .map((i: string) => i.trim())
       .filter((i: string) => i !== "");
-    console.log(interests);
 
     const isValidData = userRegisterZodSchema.safeParse({
       ...data,

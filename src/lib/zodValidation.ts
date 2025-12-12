@@ -12,6 +12,7 @@ export const zodValidator = <T>(data: T, schema: ZodObject) => {
           message: issue.message,
         };
       }),
+      previouseData: data,
     };
   }
   return {

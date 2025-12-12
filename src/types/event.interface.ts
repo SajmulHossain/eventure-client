@@ -9,6 +9,9 @@ export interface IEvent {
   status: EventStatus;
   type: string;
   host_id: string;
+  joinedParticipants: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export enum EventStatus {
