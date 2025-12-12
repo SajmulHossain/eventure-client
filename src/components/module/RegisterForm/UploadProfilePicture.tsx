@@ -15,7 +15,11 @@ import {
   FileUploadTrigger,
 } from "@/components/ui/file-upload";
 
-export function UploadPhoto() {
+export function UploadPhoto({
+  setPhoto,
+}: {
+  setPhoto: React.Dispatch<React.SetStateAction<File | null>>;
+}) {
   const [files, setFiles] = React.useState<File[]>([]);
 
   const onFileReject = React.useCallback((file: File, message: string) => {
@@ -25,6 +29,10 @@ export function UploadPhoto() {
       }" has been rejected`,
     });
   }, []);
+
+  React.useEffect(() => {
+    setPhoto(files[0]);
+  }, [files, setPhoto]);
 
   return (
     <FileUpload

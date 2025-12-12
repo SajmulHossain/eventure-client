@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-const DemoProfile = async () => {
+const Profile = async () => {
   const { interests, location, name, role, profile_photo, createdAt, bio } = await getMe() as IUser;
 
   return (
@@ -394,4 +394,4 @@ const DemoProfile = async () => {
   );
 };
 
-export default DemoProfile;
+export default Profile;

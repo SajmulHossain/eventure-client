@@ -17,7 +17,6 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import envConfig from "@/config/env.config";
 import { cn } from "@/lib/utils";
 import { loginUser } from "@/services/auth/loginUser";
 import Link from "next/link";
@@ -30,15 +29,11 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [state, formAction, isPending] = useActionState(loginUser, null);
 
-  console.log(envConfig.next_public_server_api_url);
-
     useEffect(() => {
       if (state && !state?.success && state?.message) {
         toast.error(state.message);
       }
     }, [state]);
-
-    console.log(state, "state");
 
       const getFieldErrors = (fieldName: string) => {
         if (state?.errors) {
