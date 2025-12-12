@@ -55,7 +55,12 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Name</FieldLabel>
-                <Input name="name" id="name" placeholder="John Doe" />
+                <Input
+                  name="name"
+                  id="name"
+                  placeholder="John Doe"
+                  defaultValue={state?.previouseData?.name}
+                />
                 {getFieldErrors("name") && (
                   <FieldError>{getFieldErrors("name")}</FieldError>
                 )}
@@ -66,6 +71,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                   name="email"
                   id="email"
                   type="email"
+                  defaultValue={state?.previouseData?.email}
                   placeholder="m@example.com"
                 />
                 {getFieldErrors("email") && (
@@ -80,6 +86,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                   name="password"
                   id="password"
                   type="password"
+                  defaultValue={state?.previouseData?.password}
                   placeholder="*******"
                 />
                 {getFieldErrors("password") && (
@@ -95,6 +102,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                 <Input
                   name="location"
                   id="location"
+                  defaultValue={state?.previouseData?.location}
                   placeholder="Chittagong, Bangladesh"
                 />
                 {getFieldErrors("location") && (
@@ -112,6 +120,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                 <Input
                   name="interests"
                   id="interests"
+                  defaultValue={state?.previouseData?.interests}
                   placeholder="e.g. Swimming, Programming, Cycling"
                 />
                 {getFieldErrors("interests") && (
@@ -127,6 +136,7 @@ const RegisterForm = ({ className, ...props }: ComponentProps<"div">) => {
                 <Textarea
                   name="bio"
                   placeholder="e.g. I am an entrepreneur"
+                  defaultValue={state?.previouseData?.bio}
                   className="h-20"
                 />
                 {getFieldErrors("bio") && (
