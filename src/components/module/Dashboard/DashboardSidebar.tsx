@@ -4,9 +4,9 @@ import { IUser, NavSection } from "@/types";
 import DashboardSidebarContent from "./DashboardSidebarContent";
 
 const DashboardSidebar = async () => {
-  const userInfo = (await getMe()) as IUser;
+  const userInfo = (await getMe()) || {} as IUser;
 
-  const navItems: NavSection[] = getNavByRoles(userInfo.role);
+  const navItems: NavSection[] = getNavByRoles(userInfo?.role);
 
   return <DashboardSidebarContent userInfo={userInfo} navItems={navItems} />;
 };
