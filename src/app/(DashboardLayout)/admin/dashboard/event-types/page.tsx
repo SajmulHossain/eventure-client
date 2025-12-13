@@ -10,6 +10,7 @@ import {
 import { getEventTypes } from "@/services/events/get-event-types";
 import { Plus, Tag } from "lucide-react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 const AllEventTypesPage = async () => {
   const eventTypes = await getEventTypes();
@@ -34,7 +35,10 @@ const AllEventTypesPage = async () => {
       {eventTypes.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {eventTypes.map((eventType) => (
-            <Card key={eventType._id} className="hover:shadow-md transition-shadow">
+            <Card
+              key={eventType._id}
+              className="hover:shadow-md transition-shadow"
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -52,11 +56,10 @@ const AllEventTypesPage = async () => {
                 {eventType.createdAt && (
                   <p className="text-xs text-muted-foreground mt-4">
                     Created:{" "}
-                    {new Date(eventType.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                    {format(
+                      new Date(eventType.createdAt || new Date()),
+                      "dd MMM, yyyy"
+                    )}
                   </p>
                 )}
               </CardContent>
@@ -71,4 +74,3 @@ const AllEventTypesPage = async () => {
 };
 
 export default AllEventTypesPage;
-
