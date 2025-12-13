@@ -44,14 +44,25 @@ const adminNavItems: NavSection[] = [
   },
   {
     title: "Event Management",
-    items: [
-      
+    items: [      
       {
         title: "All Events",
         href: "/admin/dashboard/events",
         icon: "PlusSquare",
         roles: ["ADMIN"],
       },
+      {
+        title: "All Event Type",
+        href: "/admin/dashboard/event-types",
+        icon: "PlusSquare",
+        roles: ["ADMIN"]
+      },
+      {
+        title: "Create Event Type",
+        href: "/admin/dashboard/create-event-type",
+        icon: "PlusSquare",
+        roles: ["ADMIN"]
+      }
     ],
   },
 ];
