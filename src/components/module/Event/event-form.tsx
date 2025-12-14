@@ -20,9 +20,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { createEvent } from "@/services/events/create-event";
 import { useActionState, useState } from "react";
 import { UploadPhoto } from "../RegisterForm/UploadProfilePicture";
-import { IUser } from "@/types";
+import { IEventType, IUser } from "@/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-export const EventForm = ({ user }: { user: IUser }) => {
+export const EventForm = ({
+  user,
+  types,
+}: {
+  user: IUser;
+  types: IEventType[];
+}) => {
   const [photo, setPhoto] = useState<File | null>(null);
   const [state, formAction, isPending] = useActionState(
     createEvent.bind(null, photo!),
@@ -96,12 +109,18 @@ export const EventForm = ({ user }: { user: IUser }) => {
             </Field>
             <Field>
               <FieldLabel htmlFor="type">Type</FieldLabel>
-              <Input
-                name="type"
-                id="type"
-                defaultValue={state?.previouseData?.type}
-                placeholder="Programming"
-              />
+              <Select name="type">
+                <SelectTrigger>
+                  <SelectValue placeholder="Select event type..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {types.map(({ name, _id }) => (
+                    <SelectItem key={_id} value={_id as string}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {getFieldErrors("type") && (
                 <FieldError>{getFieldErrors("type")}</FieldError>
               )}
