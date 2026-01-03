@@ -1,8 +1,8 @@
 const UserDashboardHomePage = () => {
   return (
-    <div>
+    <section className="page">
       <h1>This is UserDashboardHomePage component</h1>
-    </div>
+    </section>
   );
 };
 
