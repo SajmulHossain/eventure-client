@@ -1,3 +1,6 @@
+import { IEventType } from "./event-type.interface";
+import { IUser } from "./user.interface";
+
 export interface IEvent {
   _id?: string;
   name: string;
@@ -8,8 +11,8 @@ export interface IEvent {
   image_url?: string;
   joinning_fee: number;
   status: EventStatus;
-  type: string;
-  host_id: string;
+  type: IEventType;
+  host_id: IUser;
   joinedParticipants: number;
   createdAt?: Date;
   updatedAt?: Date;

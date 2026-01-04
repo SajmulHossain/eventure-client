@@ -8,6 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Building2, Mail, Calendar, MapPin, Star } from "lucide-react";
+import { PageHeader } from "@/components/shared/PageHeader";
 
 const HostManagementPage = () => {
   const dummyHosts = [
@@ -75,12 +76,10 @@ const HostManagementPage = () => {
 
   return (
     <section className="page">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Host Management</h1>
-        <p className="text-muted-foreground mt-1">
-          Manage all event hosts in the system
-        </p>
-      </div>
+      <PageHeader
+        title="Host Management"
+        description="Manage all event hosts in the system"
+      />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {dummyHosts.map((host) => (

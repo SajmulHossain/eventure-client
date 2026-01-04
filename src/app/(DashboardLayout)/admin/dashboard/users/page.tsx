@@ -8,6 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, Mail, Calendar, CalendarCheck } from "lucide-react";
+import { PageHeader } from "@/components/shared/PageHeader";
 
 const UsersManagementPage = () => {
   const dummyUsers = [
@@ -69,12 +70,10 @@ const UsersManagementPage = () => {
 
   return (
     <section className="page">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Users Management</h1>
-        <p className="text-muted-foreground mt-1">
-          Manage all registered users in the system
-        </p>
-      </div>
+      <PageHeader
+        title="Users Management"
+        description="Manage all registered users in the system"
+      />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {dummyUsers.map((user) => (

@@ -8,6 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Shield, Mail, Calendar } from "lucide-react";
+import { PageHeader } from "@/components/shared/PageHeader";
 
 const AdminManagementPage = () => {
   const dummyAdmins = [
@@ -51,12 +52,10 @@ const AdminManagementPage = () => {
 
   return (
     <section className="page">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Admin Management</h1>
-        <p className="text-muted-foreground mt-1">
-          Manage all administrators in the system
-        </p>
-      </div>
+      <PageHeader
+        title="Admin Management"
+        description="Manage all administrators in the system"
+      />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {dummyAdmins.map((admin) => (

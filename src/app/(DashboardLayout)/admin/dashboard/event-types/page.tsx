@@ -11,26 +11,25 @@ import { getEventTypes } from "@/services/events/get-event-types";
 import { Plus, Tag } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { PageHeader } from "@/components/shared/PageHeader";
 
 const AllEventTypesPage = async () => {
   const eventTypes = await getEventTypes();
 
   return (
     <section className="page">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Event Types</h1>
-          <p className="text-muted-foreground mt-1">
-            Manage all event types in the system
-          </p>
-        </div>
-        <Link href="/admin/dashboard/create-event-type">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            Create Event Type
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        title="Event Types"
+        description="Manage all event types in the system"
+        rightContent={
+          <Link href="/admin/dashboard/create-event-type">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              Create Event Type
+            </Button>
+          </Link>
+        }
+      />
 
       {eventTypes.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
