@@ -15,6 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IEvent, EventStatus } from "@/types";
 import { format } from "date-fns";
 import {
@@ -26,6 +27,7 @@ import {
   Heart,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface EventCardProps {
   event: IEvent;
@@ -82,11 +84,13 @@ export const EventCard = ({
   const defaultImage =
     "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800";
 
+  const hostName = event.host_id?.name || "Unknown Host";
+  const hostInitial = hostName.charAt(0).toUpperCase() || "H";
+
   return (
     <Card
-      className={`group relative w-full overflow-hidden border-0 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${className}`}
+      className={`group relative w-full overflow-hidden border border-slate-200/80 bg-white shadow-md ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-indigo-100 ${className}`}
     >
-      {/* Image Section */}
       <div className="relative aspect-4/3 w-full overflow-hidden">
         <Image
           src={event.image_url || defaultImage}
@@ -95,13 +99,11 @@ export const EventCard = ({
           className="object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
         />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-        {/* Badges */}
         <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
-          <Badge className="bg-white/20 text-white backdrop-blur-md border-white/20 hover:bg-white/30">
-            {event.type.name}
+          <Badge className="bg-white/15 text-white backdrop-blur-md border-white/20 hover:bg-white/25">
+            {event.type?.name}
           </Badge>
           <Badge
             variant={getStatusBadgeVariant(event.status)}
@@ -142,8 +144,8 @@ export const EventCard = ({
       </div>
 
       <CardHeader className="p-5 pb-3">
-        <div className="flex justify-between items-start gap-4 mb-2">
-          <h3 className="text-xl font-bold leading-tight text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+        <div className="flex justify-between items-start gap-4 mb-3">
+          <h3 className="text-xl font-semibold leading-tight text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
             {event.name}
           </h3>
           <div className="flex flex-col items-end shrink-0">
@@ -156,6 +158,24 @@ export const EventCard = ({
           </div>
         </div>
 
+        <Link href={`/profile/${event?.host_id?._id}`} className="flex items-center gap-2 mb-2">
+          <Avatar className="h-7 w-7">
+            <AvatarImage
+              src={event?.host_id?.profile_photo}
+              className="object-cover"
+            />
+            <AvatarFallback className="text-xs">
+              {hostInitial}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-xs font-medium text-slate-800">
+              {hostName}
+            </span>
+            <span className="text-[11px] text-slate-400">Host</span>
+          </div>
+        </Link>
+
         <CardDescription className="text-sm text-slate-600 line-clamp-2">
           {event.description}
         </CardDescription>
@@ -165,7 +185,9 @@ export const EventCard = ({
         <div className="flex items-start gap-3">
           <MapPin className="h-5 w-5 text-slate-400 shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-slate-700">{event.location}</p>
+            <p className="text-sm font-medium text-slate-800">
+              {event.location}
+            </p>
           </div>
         </div>
 
@@ -173,7 +195,7 @@ export const EventCard = ({
           <Users className="h-5 w-5 text-slate-400 shrink-0" />
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-slate-800">
                 Participants
               </span>
               <span className="text-xs font-medium text-slate-500">
@@ -202,13 +224,16 @@ export const EventCard = ({
           <Button
             onClick={() => onJoin?.(event._id || "")}
             className="rounded-full bg-slate-900 px-6 hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40"
-            disabled={event.status === EventStatus.FULL || event.status === EventStatus.CANCELLED}
+            disabled={
+              event.status === EventStatus.FULL ||
+              event.status === EventStatus.CANCELLED
+            }
           >
             {event.status === EventStatus.FULL
               ? "Full"
               : event.status === EventStatus.CANCELLED
-                ? "Cancelled"
-                : "Join Event"}
+              ? "Cancelled"
+              : "Join Event"}
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
