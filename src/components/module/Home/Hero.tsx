@@ -45,14 +45,6 @@ const Hero = () => {
                 <Link href={"/events"}>Explore Events</Link>
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-14 px-8 rounded-full border-2 border-slate-200 hover:bg-slate-50 text-slate-700 text-base"
-              >
-                <Play className="mr-2 w-4 h-4 fill-slate-700" />
-                Explore more
-              </Button>
             </div>
 
             <div className="pt-4 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-400">
@@ -97,43 +89,6 @@ const Hero = () => {
                 className="object-cover hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
-
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-xl border border-white/20">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <Badge
-                        variant="secondary"
-                        className="bg-orange-100 text-orange-700 hover:bg-orange-100 mb-2"
-                      >
-                        Happening Tonight
-                      </Badge>
-                      <h3 className="font-bold text-slate-900 text-lg">
-                        Rooftop Social & Drinks
-                      </h3>
-                    </div>
-                    <div className="bg-indigo-50 p-2 rounded-2xl text-center min-w-[60px]">
-                      <span className="block text-xs font-bold text-indigo-400 uppercase">
-                        OCT
-                      </span>
-                      <span className="block text-xl font-extrabold text-indigo-600">
-                        24
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-slate-500 font-medium">
-                      12 spots left
-                    </p>
-                    <Button
-                      size="sm"
-                      className="rounded-full bg-indigo-600 hover:bg-indigo-700 h-9"
-                    >
-                      Join Now
-                    </Button>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="absolute -top-12 -right-12 w-24 h-24 bg-yellow-300 rounded-full blur-2xl opacity-40 animate-pulse" />
