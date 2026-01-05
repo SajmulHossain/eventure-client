@@ -25,4 +25,3 @@ const AllEventsPage = async () => {
 };
 
 export default AllEventsPage;
-
