@@ -101,7 +101,7 @@ export const EventCard = ({
         {/* Badges */}
         <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
           <Badge className="bg-white/20 text-white backdrop-blur-md border-white/20 hover:bg-white/30">
-            {event.type}
+            {event.type.name}
           </Badge>
           <Badge
             variant={getStatusBadgeVariant(event.status)}
@@ -111,7 +111,6 @@ export const EventCard = ({
           </Badge>
         </div>
 
-        {/* Save Button */}
         {showSaveButton && (
           <TooltipProvider>
             <Tooltip>
@@ -132,7 +131,6 @@ export const EventCard = ({
           </TooltipProvider>
         )}
 
-        {/* Date and Time */}
         <div className="absolute bottom-4 left-4 text-white">
           <div className="flex items-center gap-2 mb-1">
             <Clock className="h-4 w-4 text-emerald-400" />
@@ -143,7 +141,6 @@ export const EventCard = ({
         </div>
       </div>
 
-      {/* Content Section */}
       <CardHeader className="p-5 pb-3">
         <div className="flex justify-between items-start gap-4 mb-2">
           <h3 className="text-xl font-bold leading-tight text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
@@ -165,7 +162,6 @@ export const EventCard = ({
       </CardHeader>
 
       <CardContent className="p-5 pt-0 space-y-3">
-        {/* Location */}
         <div className="flex items-start gap-3">
           <MapPin className="h-5 w-5 text-slate-400 shrink-0 mt-0.5" />
           <div>
@@ -173,7 +169,6 @@ export const EventCard = ({
           </div>
         </div>
 
-        {/* Participants Info */}
         <div className="flex items-center gap-3">
           <Users className="h-5 w-5 text-slate-400 shrink-0" />
           <div className="flex-1">
@@ -195,7 +190,6 @@ export const EventCard = ({
         </div>
       </CardContent>
 
-      {/* Footer Section */}
       <CardFooter className="p-5 pt-0">
         <div className="flex items-center justify-between w-full border-t border-slate-100 pt-4">
           <div className="flex items-center gap-2">
@@ -213,8 +207,8 @@ export const EventCard = ({
             {event.status === EventStatus.FULL
               ? "Full"
               : event.status === EventStatus.CANCELLED
-              ? "Cancelled"
-              : "Join Event"}
+                ? "Cancelled"
+                : "Join Event"}
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
