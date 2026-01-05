@@ -1,12 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const CTA = () => {
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="relative rounded-3xl overflow-hidden bg-indigo-600 px-6 py-20 text-center sm:px-12 md:px-24 lg:py-24">
-          {/* Abstract Background Patterns */}
           <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500 rounded-full opacity-50 blur-3xl"></div>
           <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-64 h-64 bg-purple-500 rounded-full opacity-50 blur-3xl"></div>
 
@@ -23,14 +23,7 @@ const CTA = () => {
                 size="lg"
                 className="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold h-12 px-8"
               >
-                Get Started Now
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-white text-white hover:bg-white/10 h-12 px-8"
-              >
-                Create an Event <ArrowRight className="ml-2 w-4 h-4" />
+                <Link href={"/events"}>Get Started Now</Link>
               </Button>
             </div>
           </div>
