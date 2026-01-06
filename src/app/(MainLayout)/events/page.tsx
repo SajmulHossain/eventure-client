@@ -1,20 +1,9 @@
-import { EventCard } from "@/components/module/Event/EventCard";
-import NoDataFound from "@/components/shared/NoDataFound";
-import { getEvents } from "@/services/events/events";
-import { handleJoinEvent } from "@/services/events/handleJoinEvent";
+import EventsClient from "@/components/module/Event/EventsClient";
 
 const EventsPage = async () => {
-  const events = await getEvents();
-
   return (
     <section className="page">
-      {events.length ? (
-        events.map((event) => (
-          <EventCard key={event._id} onJoin={handleJoinEvent} event={event} />
-        ))
-      ) : (
-        <NoDataFound />
-      )}
+      <EventsClient />
     </section>
   );
 };

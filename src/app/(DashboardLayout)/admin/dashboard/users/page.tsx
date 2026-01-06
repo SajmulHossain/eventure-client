@@ -1,14 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Mail, Calendar, CalendarCheck } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { Badge } from "@/components/ui/badge";
 import { getAllUsers } from "@/services/user/getAllUsers";
 import { UsersPageClient } from "./UsersPageClient";
 

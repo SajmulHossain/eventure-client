@@ -1,7 +1,14 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -10,27 +17,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IUser, UserRole } from "@/types";
 import { format } from "date-fns";
 import {
-  MoreVertical,
+  Building2,
+  Calendar,
   Edit,
-  Trash2,
   Mail,
   MapPin,
-  Calendar,
-  User,
+  MoreVertical,
   Shield,
-  Building2,
+  Trash2,
+  User,
 } from "lucide-react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 interface UsersTableProps {
