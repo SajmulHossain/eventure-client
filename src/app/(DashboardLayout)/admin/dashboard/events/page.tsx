@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
-import { getEvents } from "@/services/events/events";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { EventsPageClient } from "./EventsPageClient";
+import { getAllEvents } from "@/services/events/events";
 
 const AllEventsPage = async () => {
-  const events = await getEvents();
+  const events = await getAllEvents();
 
   return (
     <section className="page">

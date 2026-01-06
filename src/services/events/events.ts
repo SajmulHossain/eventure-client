@@ -1,7 +1,7 @@
 import { serverFetch } from "@/lib/server-fetch";
 import { IEvent } from "@/types";
 
-export const getEvents = async (): Promise<IEvent[]> => {
+export const getAllEvents = async (): Promise<IEvent[]> => {
   try {
     const res = await serverFetch.get("/events");
     const result = await res.json();

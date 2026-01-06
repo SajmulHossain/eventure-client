@@ -158,15 +158,16 @@ export const EventCard = ({
           </div>
         </div>
 
-        <Link href={`/profile/${event?.host_id?._id}`} className="flex items-center gap-2 mb-2">
+        <Link
+          href={`/profile/${event?.host_id?._id}`}
+          className="flex items-center gap-2 mb-2"
+        >
           <Avatar className="h-7 w-7">
             <AvatarImage
               src={event?.host_id?.profile_photo}
               className="object-cover"
             />
-            <AvatarFallback className="text-xs">
-              {hostInitial}
-            </AvatarFallback>
+            <AvatarFallback className="text-xs">{hostInitial}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
             <span className="text-xs font-medium text-slate-800">
@@ -220,6 +221,10 @@ export const EventCard = ({
               {participantsPercentage}% filled
             </span>
           </div>
+
+          <Button variant={"outline"}>
+            <Link href={`/events/${event?._id}` || ""}>View Details</Link>
+          </Button>
 
           <Button
             onClick={() => onJoin?.(event._id || "")}
