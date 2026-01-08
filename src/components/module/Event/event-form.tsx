@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
 
 export const EventForm = ({
   user,
@@ -41,6 +42,10 @@ export const EventForm = ({
     createEvent.bind(null, photo!),
     null
   );
+
+  if (!state?.success && state?.error?.statusCode && state.message) {
+    toast.error(state.message);
+  }
 
   const getFieldErrors = (fieldName: string) => {
     if (state?.errors) {
@@ -100,7 +105,7 @@ export const EventForm = ({
                 name="date_and_time"
                 id="date_and_time"
                 type="datetime-local"
-                defaultValue={state?.previouseData?.date_and_time}
+                defaultValue={state?.previouseData?.date_and_time || new Date().toISOString().slice(0, 16)}
                 placeholder="Event Date and Time"
               />
               {getFieldErrors("date_and_time") && (

@@ -2,9 +2,9 @@
 "use server";
 
 import { serverFetch } from "@/lib/server-fetch";
-import { zodValidator } from "@/lib/zodValidation";
-import { EventStatus, IEvent } from "@/types";
+import { EventStatus } from "@/types";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 import z from "zod";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -16,7 +16,9 @@ const eventCreateZodSchema = z.object({
     .min(7, { error: "Description must be atleast 7 characters" }),
   date_and_time: z.coerce
     .date()
-    .min(new Date(), { error: "Date and time is required" }),
+    .min(new Date(), {
+      error: "Date and time is required or not less than today",
+    }),
   location: z.string().min(3, { error: "Location is required" }),
   required_participants: z.coerce
     .number({ error: "Required participants is required" })
@@ -41,7 +43,10 @@ export const createEvent = async (
   try {
     const data = Object.fromEntries(formData);
 
-    const isValidateData = eventCreateZodSchema.safeParse({...data, image_url: photo});
+    const isValidateData = eventCreateZodSchema.safeParse({
+      ...data,
+      image_url: photo,
+    });
 
     if (!isValidateData.success) {
       return {
@@ -78,7 +83,7 @@ export const createEvent = async (
     if (error?.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
-    console.log(error);
+
     return error;
   }
 };

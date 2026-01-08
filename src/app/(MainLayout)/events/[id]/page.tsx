@@ -1,9 +1,6 @@
 import { getEvent } from "@/services/events/get-event";
 import { IEvent } from "@/types";
-import Link from "next/link";
-import Reviews from "@/components/module/Event/Reviews";
 import NoDataFound from "@/components/shared/NoDataFound";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Info, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -12,18 +9,16 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { getNameLetters } from "@/lib/getNameLetters";
 
-interface Props {
+const EventDetailPage = async ({
+  params,
+}: {
   params: Promise<{ id: string }>;
-}
-
-const EventDetailPage = async ({ params }: Props) => {
+}) => {
   const { id } = await params;
   const event: IEvent | null = await getEvent(id);
 
   const defaultImage =
     "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800";
-
-  console.log(event);
 
   if (!event) {
     return <NoDataFound />;
@@ -54,7 +49,6 @@ const EventDetailPage = async ({ params }: Props) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Left Column: Information */}
           <div className="lg:col-span-2 space-y-8">
             <section>
               <h2 className="text-2xl font-bold mb-4">About this Event</h2>
@@ -115,7 +109,6 @@ const EventDetailPage = async ({ params }: Props) => {
             </section>
           </div>
 
-          {/* Right Column: Sticky Booking Card */}
           <div className="lg:col-span-1">
             <div className="sticky top-8 p-6 rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-200/50">
               <div className="flex justify-between items-center mb-6">

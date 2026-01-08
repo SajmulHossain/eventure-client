@@ -44,7 +44,7 @@ const adminNavItems: NavSection[] = [
   },
   {
     title: "Event Management",
-    items: [      
+    items: [
       {
         title: "All Events",
         href: "/admin/dashboard/events",
@@ -52,17 +52,28 @@ const adminNavItems: NavSection[] = [
         roles: ["ADMIN"],
       },
       {
+        title: "Create Event",
+        href: "/admin/dashboard/create-event",
+        icon: "PlusSquare",
+        roles: ["ADMIN"],
+      },
+    ],
+  },
+  {
+    title: "Event Type",
+    items: [
+      {
         title: "All Event Type",
         href: "/admin/dashboard/event-types",
         icon: "PlusSquare",
-        roles: ["ADMIN"]
+        roles: ["ADMIN"],
       },
       {
         title: "Create Event Type",
         href: "/admin/dashboard/create-event-type",
         icon: "PlusSquare",
-        roles: ["ADMIN"]
-      }
+        roles: ["ADMIN"],
+      },
     ],
   },
 ];
@@ -76,8 +87,8 @@ const hostNavItems: NavSection[] = [
         href: "/host/dashboard/create-event",
         icon: "PlusIcon",
         roles: ["HOST"],
-      }
-    ]
+      },
+    ],
   },
   {
     title: "General",
