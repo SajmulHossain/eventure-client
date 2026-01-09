@@ -9,7 +9,7 @@ export const authRoutes = ["/login", "/register", "/reset-password"];
 
 export const commonProtectedRoutes: RouteConfig = {
   exact: ["/profile", "/change-password"],
-  patterns: [],
+  patterns: [/^\/payments/],
 };
 
 export const hostProtectedRoutes: RouteConfig = {

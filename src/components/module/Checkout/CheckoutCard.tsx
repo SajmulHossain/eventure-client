@@ -30,7 +30,7 @@ export default function CheckoutCard({ event }: { event: IEvent }) {
 
     try {
       const result =await initPayment(event._id || "");
-      console.log(result)
+        window.location.href = result;
     } catch (error) {
         console.log(error)
       toast.error("Something went wrong. Please try again.", { id: toastId });
