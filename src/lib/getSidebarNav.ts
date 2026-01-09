@@ -18,6 +18,19 @@ export const getCommonNav = (role: UserRole): NavSection[] => {
   ];
 };
 
+const commonNavs2 = [
+  {
+    items: [
+      {
+        title: "Payments",
+        href: `/payments`,
+        icon: "CreditCard",
+        roles: ["USER", "HOST"],
+      },
+    ],
+  },
+];
+
 const adminNavItems: NavSection[] = [
   {
     title: "User Management",
@@ -146,12 +159,12 @@ export const getNavByRoles = (role: UserRole) => {
 
   switch (role) {
     case "ADMIN":
-      return [...commonNavs, ...adminNavItems];
+      return [...commonNavs, ...adminNavItems, ...commonNavs2];
 
     case "HOST":
-      return [...commonNavs, ...hostNavItems];
+      return [...commonNavs, ...hostNavItems, ...commonNavs2];
     case "USER":
-      return [...commonNavs, ...userNavItems];
+      return [...commonNavs, ...userNavItems, ...commonNavs2];
 
     default:
       return [];

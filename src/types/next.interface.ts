@@ -1,0 +1,1 @@
+export type IParams = { [key: string]: string | string[] | undefined }
