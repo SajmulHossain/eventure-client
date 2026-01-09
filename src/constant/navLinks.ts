@@ -49,15 +49,15 @@ export const adminLoggedInNavLinks: INavLink[] = [
   },
   {
     label: "Manage Users",
-    href: "/manage-users",
+    href: "/admin/dashboard/users",
   },
   {
     label: "Manage Host",
-    href: "/manage-hosts",
+    href: "/admin/dashboard/host",
   },
   {
     label: "Manage Events",
-    href: "/manage-events",
+    href: "/admin/dashboard/events",
   },
   {
     label: "Profile",

@@ -72,6 +72,18 @@ const adminNavItems: NavSection[] = [
         roles: ["ADMIN"] as UserRole[],
       },
       {
+        title: "Hosted Events",
+        href: "/admin/dashboard/hosted-events",
+        icon: "PlusSquare",
+        roles: ["ADMIN"] as UserRole[],
+      },
+      {
+        title: "My Events",
+        href: "/my-events",
+        icon: "PlusSquare",
+        roles: ["ADMIN"] as UserRole[],
+      },
+      {
         title: "Create Event",
         href: "/admin/dashboard/create-event",
         icon: "PlusSquare",
