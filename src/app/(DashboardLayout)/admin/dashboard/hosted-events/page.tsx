@@ -3,6 +3,8 @@ import { EventCard } from "@/components/module/Event/EventCard";
 import NoDataFound from "@/components/shared/NoDataFound";
 import hostedEvents from "@/services/events/hostedEvents";
 import { EventCardSkeletonGrid } from "@/components/shared/skeletons";
+import { EventsTable } from "@/components/shared/EventsTable";
+import HostedEventsClient from "./HostedEventsClient";
 
 const HostedEventsContent = async () => {
   const events = await hostedEvents();
@@ -12,10 +14,8 @@ const HostedEventsContent = async () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {events.map((event) => (
-        <EventCard key={event?._id} event={event} />
-      ))}
+      <div>
+          <HostedEventsClient events={events} />
     </div>
   );
 };
