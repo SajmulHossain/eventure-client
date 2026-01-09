@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { getNameLetters } from "@/lib/getNameLetters";
 import { format } from "date-fns";
+import EventDetailsActionButton from "@/components/module/Event/EventDetailsActionButton";
+import { getSaveEvent } from "@/services/savedEvents/getSaveStatus";
 
 const EventDetailPage = async ({
   params,
@@ -17,6 +19,8 @@ const EventDetailPage = async ({
 }) => {
   const { id } = await params;
   const event: IEvent | null = await getEvent(id);
+  const isSaved = await getSaveEvent(id);
+  console.log(isSaved)
 
   if (!event) return <NoDataFound />;
 
@@ -27,9 +31,8 @@ const EventDetailPage = async ({
   const progress = (joinedCount / event.required_participants) * 100;
 
   return (
-    <div className="min-h-screen bg-slate-50/30 pb-20">
+    <section className="page">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Hero Section */}
         <div className="relative h-[450px] w-full overflow-hidden rounded-4xl mb-10 shadow-2xl">
           <Image
             src={event?.image_url || defaultImage}
@@ -56,7 +59,6 @@ const EventDetailPage = async ({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-10">
             <section>
               <h2 className="text-2xl font-bold mb-4 text-slate-900">About this Event</h2>
@@ -104,7 +106,6 @@ const EventDetailPage = async ({
             </section>
           </div>
 
-          {/* Sticky Action Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-8 p-8 rounded-[2.5rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/60">
               <div className="flex justify-between items-start mb-8">
@@ -136,23 +137,7 @@ const EventDetailPage = async ({
               </div>
 
               {/* Action Buttons Row */}
-              <div className="flex gap-3 mb-4">
-                <Button className="flex-1 h-14 text-lg font-bold rounded-2xl bg-slate-900 hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200">
-                  Join Event
-                </Button>
-                
-                {/* SAVE BUTTON */}
-                <Button 
-                  variant="outline" 
-                  className="h-14 w-14 rounded-2xl border-slate-200 hover:bg-red-50 hover:text-red-500 hover:border-red-100 transition-colors"
-                >
-                  <Heart className="h-6 w-6" />
-                </Button>
-              </div>
-
-              <Button variant="ghost" className="w-full text-slate-500 h-12 hover:bg-slate-50 gap-2 font-medium">
-                <Share2 className="h-4 w-4" /> Share with friends
-              </Button>
+              <EventDetailsActionButton id={event?._id || ""} isSaved={isSaved} />
 
               <div className="mt-6 p-4 rounded-xl bg-slate-50 flex gap-3 items-start">
                 <Info className="h-5 w-5 text-slate-400 shrink-0 mt-0.5" />
@@ -164,7 +149,7 @@ const EventDetailPage = async ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
