@@ -38,7 +38,7 @@ export const hostLoggedInNavLinks: INavLink[] = [
   ...loggedInNavLinks,
   {
     label: "Create Event",
-    href: "/create-event",
+    href: "/host/dashboard/create-event",
   },
 ];
 

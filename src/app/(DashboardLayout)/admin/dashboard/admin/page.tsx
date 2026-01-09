@@ -1,13 +1,15 @@
+import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { getAllAdmins } from "@/services/user/getAllAdmins";
 import { AdminsPageClient } from "./AdminsPageClient";
+import { TableSkeleton } from "@/components/shared/skeletons";
 
-const AdminManagementPage = async () => {
+const AdminsContent = async () => {
   const admins = await getAllAdmins();
 
   return (
-    <section className="page">
+    <>
       <PageHeader
         title="Admin Management"
         description="Manage all administrators in the system"
@@ -17,8 +19,17 @@ const AdminManagementPage = async () => {
           </Badge>
         }
       />
-
       <AdminsPageClient admins={admins} />
+    </>
+  );
+};
+
+const AdminManagementPage = () => {
+  return (
+    <section className="page">
+      <Suspense fallback={<TableSkeleton rows={8} cols={7} />}>
+        <AdminsContent />
+      </Suspense>
     </section>
   );
 };

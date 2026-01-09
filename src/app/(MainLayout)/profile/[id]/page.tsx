@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProfileWrapper from "@/components/module/Profile/Profile";
 import { getMe } from "@/services/auth/getMe";
 import { getSingleUser } from "@/services/user/user";
@@ -7,29 +8,30 @@ import {
   getEventsByUserId,
 } from "@/services/events/getEventsByUserId";
 import { getUserReviews } from "@/services/user/getUserReviews";
+import { ProfileSkeleton } from "@/components/shared/skeletons";
 
-const UserProfilePage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const { id } = await params;
-  const user = await getSingleUser(id);
-  const me = (await getMe()) || {};
+const UserProfileContent = async ({ id }: { id: string }) => {
+  const [user, me] = await Promise.all([
+    getSingleUser(id),
+    getMe(),
+  ]);
 
   if (!user) {
-    return redirect("/profile");
+    redirect("/profile");
+    return null;
   }
 
-  const isOwner = user.email === me.email;
+  const isOwner = user.email === me?.email;
 
   let hostedEvents: any[] = [];
   let joinedEvents: any[] = [];
   let reviews: any[] = [];
 
   if (user.role === "HOST") {
-    hostedEvents = await getHostedEventsByUserId(user._id || id);
-    reviews = await getUserReviews(user._id || id);
+    [hostedEvents, reviews] = await Promise.all([
+      getHostedEventsByUserId(user._id || id),
+      getUserReviews(user._id || id),
+    ]);
   } else if (user.role === "USER") {
     joinedEvents = await getEventsByUserId(user._id || id);
   }
@@ -42,6 +44,20 @@ const UserProfilePage = async ({
       joinedEvents={joinedEvents}
       reviews={reviews}
     />
+  );
+};
+
+const UserProfilePage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+
+  return (
+    <Suspense fallback={<ProfileSkeleton />}>
+      <UserProfileContent id={id} />
+    </Suspense>
   );
 };
 

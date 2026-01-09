@@ -1,13 +1,15 @@
+import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { getAllHosts } from "@/services/user/getAllHosts";
 import { HostsPageClient } from "./HostsPageClient";
+import { TableSkeleton } from "@/components/shared/skeletons";
 
-const HostManagementPage = async () => {
+const HostsContent = async () => {
   const hosts = await getAllHosts();
 
   return (
-    <section className="page">
+    <>
       <PageHeader
         title="Host Management"
         description="Manage all event hosts in the system"
@@ -17,8 +19,17 @@ const HostManagementPage = async () => {
           </Badge>
         }
       />
-
       <HostsPageClient hosts={hosts} />
+    </>
+  );
+};
+
+const HostManagementPage = () => {
+  return (
+    <section className="page">
+      <Suspense fallback={<TableSkeleton rows={8} cols={8} />}>
+        <HostsContent />
+      </Suspense>
     </section>
   );
 };

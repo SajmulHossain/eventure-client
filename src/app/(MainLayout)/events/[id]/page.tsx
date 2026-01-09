@@ -1,8 +1,9 @@
+import { Suspense } from "react";
 import { getEvent } from "@/services/events/get-event";
 import { IEvent } from "@/types";
 import NoDataFound from "@/components/shared/NoDataFound";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Info, MapPin, Heart, Share2 } from "lucide-react";
+import { Calendar, Clock, Info, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -12,16 +13,39 @@ import { format } from "date-fns";
 import EventDetailsActionButton from "@/components/module/Event/EventDetailsActionButton";
 import { getSaveEvent } from "@/services/savedEvents/getSaveStatus";
 import getDefaultImageUrl from "@/constant/getDefaultImageUrl";
+import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
-const EventDetailPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const { id } = await params;
-  const event: IEvent | null = await getEvent(id);
-  const isSaved = await getSaveEvent(id);
-  console.log(isSaved)
+const EventDetailSkeleton = () => (
+  <section className="page">
+    <div className="max-w-6xl mx-auto px-4 py-8 animate-pulse">
+      <div className="h-[450px] w-full bg-slate-200 rounded-4xl mb-10" />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-10">
+          <div className="h-8 bg-slate-200 rounded w-48 mb-4" />
+          <div className="h-4 bg-slate-200 rounded w-full mb-2" />
+          <div className="h-4 bg-slate-200 rounded w-3/4" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card><CardContent className="p-5"><div className="h-20 bg-slate-200 rounded" /></CardContent></Card>
+            <Card><CardContent className="p-5"><div className="h-20 bg-slate-200 rounded" /></CardContent></Card>
+          </div>
+        </div>
+        <div className="lg:col-span-1">
+          <Card className="p-8">
+            <div className="h-32 bg-slate-200 rounded mb-4" />
+            <div className="h-12 bg-slate-200 rounded" />
+          </Card>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const EventDetailContent = async ({ id }: { id: string }) => {
+  const [event, isSaved] = await Promise.all([
+    getEvent(id),
+    getSaveEvent(id),
+  ]);
 
   if (!event) return <NoDataFound />;
 
@@ -102,7 +126,7 @@ const EventDetailPage = async ({
                     <p className="text-sm text-indigo-600 font-medium">Top Rated Host</p>
                   </div>
                 </div>
-                <Button variant="outline" className="shadow-sm border-slate-200">View Profile</Button>
+                <Button variant="outline" className="shadow-sm border-slate-200"><Link href={`/profile/${event?.host_id?._id}`}>View Profile</Link></Button>
               </div>
             </section>
           </div>
@@ -150,6 +174,20 @@ const EventDetailPage = async ({
         </div>
       </div>
     </section>
+  );
+};
+
+const EventDetailPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+
+  return (
+    <Suspense fallback={<EventDetailSkeleton />}>
+      <EventDetailContent id={id} />
+    </Suspense>
   );
 };
 
