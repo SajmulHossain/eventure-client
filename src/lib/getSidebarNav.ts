@@ -119,18 +119,6 @@ const hostNavItems: NavSection[] = [
         icon: "PlusIcon",
         roles: ["HOST"] as UserRole[],
       },
-      {
-        title: "Participants",
-        href: "/host/dashboard/participants",
-        icon: "PlusIcon",
-        roles: ["HOST"] as UserRole[],
-      },
-      {
-        title: "Payments",
-        href: "/host/dashboard/payments",
-        icon: "DollarSign",
-        roles: ["HOST"] as UserRole[],
-      },
     ],
   },
 ];

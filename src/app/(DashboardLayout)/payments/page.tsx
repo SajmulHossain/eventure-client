@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import getAllPayments from "@/services/payment/getAllPayments";
 import Pagination from "@/components/Pagination";
+import NoDataFound from "@/components/shared/NoDataFound";
 
 const getStatusStyles = (status: PAYMET_STATUS) => {
   switch (status) {
@@ -71,95 +72,101 @@ async function PaymentPage({
           </div>
         </div>
 
-        <Card className="border-none shadow-xl shadow-slate-200/60 rounded-3xl overflow-hidden">
-          <CardHeader className="bg-white border-b border-slate-50">
-            <CardTitle className="text-lg font-semibold">
-              Recent Transactions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader className="bg-slate-50/50">
-                <TableRow className="hover:bg-transparent border-none">
-                  <TableHead className="w-[300px] font-bold py-5 pl-8">
-                    Event Name
-                  </TableHead>
-                  <TableHead className="font-bold">Transaction ID</TableHead>
-                  <TableHead className="font-bold">User</TableHead>
-                  <TableHead className="font-bold text-right">Amount</TableHead>
-                  <TableHead className="font-bold text-center">
-                    Status
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {payments?.map((payment) => {
-                  const styles = getStatusStyles(payment.status);
-                  return (
-                    <TableRow
-                      key={payment.transactionId}
-                      className="group hover:bg-slate-50/50 transition-colors"
-                    >
-                      <TableCell className="py-5 pl-8">
-                        <div className="flex flex-col">
-                          <span className="font-bold text-slate-800 line-clamp-1">
-                            {payment.event?.name}
+        {payments?.length ? (
+          <Card className="border-none shadow-xl shadow-slate-200/60 rounded-3xl overflow-hidden">
+            <CardHeader className="bg-white border-b border-slate-50">
+              <CardTitle className="text-lg font-semibold">
+                Recent Transactions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader className="bg-slate-50/50">
+                  <TableRow className="hover:bg-transparent border-none">
+                    <TableHead className="w-[300px] font-bold py-5 pl-8">
+                      Event Name
+                    </TableHead>
+                    <TableHead className="font-bold">Transaction ID</TableHead>
+                    <TableHead className="font-bold">User</TableHead>
+                    <TableHead className="font-bold text-right">
+                      Amount
+                    </TableHead>
+                    <TableHead className="font-bold text-center">
+                      Status
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {payments?.map((payment) => {
+                    const styles = getStatusStyles(payment.status);
+                    return (
+                      <TableRow
+                        key={payment.transactionId}
+                        className="group hover:bg-slate-50/50 transition-colors"
+                      >
+                        <TableCell className="py-5 pl-8">
+                          <div className="flex flex-col">
+                            <span className="font-bold text-slate-800 line-clamp-1">
+                              {payment.event?.name}
+                            </span>
+                            <span className="text-xs text-slate-400">
+                              {format(
+                                new Date(payment?.createdAt || new Date()),
+                                "MMM dd, yyyy"
+                              )}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="font-mono text-sm text-slate-500">
+                          {payment.transactionId}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium text-slate-700">
+                              {payment.user?.name}
+                            </span>
+                            <span className="text-[10px] text-slate-400">
+                              {payment.user?.email}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className="font-black text-slate-900">
+                            ৳{payment.amount}
                           </span>
-                          <span className="text-xs text-slate-400">
-                            {format(
-                              new Date(payment?.createdAt || new Date()),
-                              "MMM dd, yyyy"
-                            )}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-mono text-sm text-slate-500">
-                        {payment.transactionId}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-col">
-                          <span className="text-sm font-medium text-slate-700">
-                            {payment.user?.name}
-                          </span>
-                          <span className="text-[10px] text-slate-400">
-                            {payment.user?.email}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className="font-black text-slate-900">
-                          ৳{payment.amount}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Badge
-                          variant="outline"
-                          className={`capitalize px-3 py-1 rounded-full border flex items-center gap-1.5 w-fit mx-auto ${styles.color}`}
-                        >
-                          {styles.icon}
-                          {payment?.status}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Badge
+                            variant="outline"
+                            className={`capitalize px-3 py-1 rounded-full border flex items-center gap-1.5 w-fit mx-auto ${styles.color}`}
+                          >
+                            {styles.icon}
+                            {payment?.status}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
 
-            <Pagination meta={meta as IMeta} />
+              <Pagination meta={meta as IMeta} />
 
-            {payments?.length === 0 && (
-              <div className="py-20 text-center space-y-3">
-                <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                  <CreditCard className="text-slate-300 w-8 h-8" />
+              {payments?.length === 0 && (
+                <div className="py-20 text-center space-y-3">
+                  <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                    <CreditCard className="text-slate-300 w-8 h-8" />
+                  </div>
+                  <p className="text-slate-400 font-medium">
+                    No payment records found.
+                  </p>
                 </div>
-                <p className="text-slate-400 font-medium">
-                  No payment records found.
-                </p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+              )}
+            </CardContent>
+          </Card>
+        ) : (
+          <NoDataFound />
+        )}
       </div>
     </section>
   );

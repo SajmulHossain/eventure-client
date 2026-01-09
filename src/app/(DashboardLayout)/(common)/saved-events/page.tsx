@@ -7,13 +7,12 @@ async function SavedEventsPage() {
 
   return (
     <section className="page">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {events?.length ? (
-          events.map((event) => <EventCard key={event?._id} event={event} />)
-        ) : (
-          <NoDataFound />
-        )}
-      </div>
+        {
+          events?.length ? 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {events.map(event => <EventCard key={event?._id} event={event} />) }
+        </div>: <NoDataFound />
+        }
     </section>
   );
 }

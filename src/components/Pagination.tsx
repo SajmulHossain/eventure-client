@@ -34,7 +34,7 @@ const Pagination = ({meta}: {meta: IMeta}) => {
   const currentLimit = searchParams.get("limit") || "10";
 
     const currentPage = parseInt(searchParams.get("page") || "1", 10);
-    const totalPages = Math.ceil(meta.total / parseInt(currentLimit, 10));
+    const totalPages = Math.ceil(meta?.total / parseInt(currentLimit, 10));
 
   return (
     <div className="flex items-center justify-center gap-2">
