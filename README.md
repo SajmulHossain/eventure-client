@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 Events & Activities Platform
 
-## Getting Started
+**Events & Activities Platform** is a social hub designed to bridge the gap between online discovery and offline participation. It helps individuals find companions for local events, sports, or hobbies, ensuring no one misses out on an activity simply because they don't have someone to go with.
 
-First, run the development server:
+---
+
+## 🚀 Core Features
+
+### 🔐 Authentication & Role-Based Access
+- **Multi-Role System**: Specific dashboards for **Users**, **Hosts**, and **Admins**.
+- **Secure Auth**: JWT-based authentication with password hashing.
+- **Dynamic Navbar**: Navigation items adapt based on the user's role.
+
+### 📅 Event Management (CRUD)
+- **Hosts**: Create, edit, and manage event details (Date, Location, Fee, Capacity).
+- **Participants**: Real-time tracking of joined participants.
+- **Search & Filter**: Advanced filtering by category, date, and location.
+
+### 💳 Payment & Review System
+- **Payments**: Integrated payment processing for event joining fees (SSLCommerz/Stripe).
+- **Reviews**: Attendees can rate and review hosts (1–5 stars) to build community trust.
+
+### 👤 Profile Management
+- **Personalized Profiles**: Bio, interest tags, and activity history.
+- **Public View**: Ability to view other users' hobbies to find compatible partners.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS, Shadcn UI.
+- **Backend**: Node.js, Express.js, Mongoose.
+- **Database**: MongoDB Atlas.
+- **Storage**: Cloudinary (for image uploads).
+
+---
+
+## 📂 Folder Structure
+
+
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+events-platform/
+├── frontend/ (Next.js)
+│   ├── app/                # Auth, Dashboard, Events pages
+│   ├── components/         # Reusable UI (Navbar, Cards, Modals)
+│   ├── services/           # API calling functions
+│   └── types/              # TypeScript interfaces/enums
+└── backend/ (Express)
+    ├── src/
+    │   ├── modules/        # Scalable module-based architecture
+    │   ├── middlewares/    # Auth, Validation, Error Handling
+    │   └── server.ts       # Entry point
