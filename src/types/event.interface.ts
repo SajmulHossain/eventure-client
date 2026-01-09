@@ -13,7 +13,7 @@ export interface IEvent {
   status: EventStatus;
   type: IEventType;
   host_id: IUser;
-  joinedParticipants: number;
+  joinedParticipants: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }

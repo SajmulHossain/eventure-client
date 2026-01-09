@@ -1,13 +1,18 @@
-import { EventCard } from "@/components/module/Event/EventCard";
 import NoDataFound from "@/components/shared/NoDataFound";
 import { getAllEvents } from "@/services/events/events";
+import { EventCard } from "@/components/module/Event/EventCard";
+import { getSaveEvent } from "@/services/savedEvents/getSaveStatus";
 
-const EventsPage = async () => {
+const EventsPageWrapper = async () => {
   const events = await getAllEvents();
   return (
     <section className="page">
       {events.length ? (
-        events.map((event) => <EventCard key={event?._id} event={event} />)
+        events.map(async (event) => {
+          console.log(event?._id)
+          const isSaved = await getSaveEvent(event?._id || "") || false;
+          return <EventCard event={event} key={event?._id} isSaved={isSaved} />
+        })
       ) : (
         <NoDataFound />
       )}
@@ -15,4 +20,4 @@ const EventsPage = async () => {
   );
 };
 
-export default EventsPage;
+export default EventsPageWrapper;

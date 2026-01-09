@@ -13,7 +13,7 @@ const AllEventsPage = async () => {
         description="View and manage all events in the system"
         rightContent={
           <Badge variant="outline" className="text-sm">
-            Total: {events.length} events
+            Total: {events?.length} events
           </Badge>
         }
         className="mb-8"

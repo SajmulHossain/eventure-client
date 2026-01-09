@@ -25,11 +25,11 @@ import {
   Trash2,
   Calendar,
   MapPin,
-  Users,
   DollarSign,
   Clock,
 } from "lucide-react";
 import Image from "next/image";
+import { getNameLetters } from "@/lib/getNameLetters";
 
 interface EventsTableProps {
   events: IEvent[];
@@ -52,11 +52,8 @@ const getStatusBadgeVariant = (status: EventStatus) => {
   }
 };
 
-export const EventsTable = ({
-  events,
-  onEdit,
-  onDelete,
-}: EventsTableProps) => {
+export const EventsTable = ({ events, onEdit, onDelete }: EventsTableProps) => {
+
   const getCapacityPercentage = (joined: number, required: number): number => {
     return Math.min((joined / required) * 100, 100);
   };
@@ -88,14 +85,13 @@ export const EventsTable = ({
         <TableBody>
           {events.map((event) => {
             const capacityPercentage = getCapacityPercentage(
-              event.joinedParticipants,
+              event.joinedParticipants?.length || 0,
               event.required_participants
             );
             const eventDate = new Date(event.date_and_time);
 
             return (
               <TableRow key={event._id} className="hover:bg-muted/50">
-                {/* Event Info */}
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <div className="relative h-12 w-12 rounded-md overflow-hidden shrink-0">
@@ -107,7 +103,7 @@ export const EventsTable = ({
                           className="object-cover"
                         />
                       ) : (
-                        <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                        <div className="h-full w-full bg-linear-to-br from-primary/20 to-primary/5 flex items-center justify-center">
                           <Calendar className="h-6 w-6 text-muted-foreground" />
                         </div>
                       )}
@@ -115,21 +111,21 @@ export const EventsTable = ({
                     <div className="flex-1 min-w-0">
                       <p className="font-medium line-clamp-1">{event.name}</p>
                       <p className="text-sm text-muted-foreground line-clamp-1">
-                        {event.type?.name || "No Type"}
+                        {event?.type?.name || "No Type"}
                       </p>
                     </div>
                   </div>
                 </TableCell>
 
-                {/* Host */}
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${event.host_id?.name || "Host"}`}
+                        className="object-cover"
+                        src={event?.host_id?.profile_photo}
                       />
                       <AvatarFallback className="text-xs">
-                        {event.host_id?.name?.charAt(0) || "H"}
+                        {getNameLetters(event.host_id?.name || "")}
                       </AvatarFallback>
                     </Avatar>
                     <span className="text-sm line-clamp-1">
@@ -165,7 +161,8 @@ export const EventsTable = ({
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">
-                        {event.joinedParticipants} / {event.required_participants}
+                        {event?.joinedParticipants?.length || 0} /{" "}
+                        {event.required_participants}
                       </span>
                     </div>
                     <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
@@ -235,5 +232,3 @@ export const EventsTable = ({
     </div>
   );
 };
-
-
