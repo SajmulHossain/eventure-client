@@ -40,7 +40,16 @@ export async function proxy(request: NextRequest) {
     );
   }
 
-  if (routerOwner === null) {
+  if (pathname.startsWith("/events") && pathname.endsWith("/checkout")) {
+    if (!accessToken) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.next();
+  }
+
+  if (!routerOwner) {
     return NextResponse.next();
   }
 

@@ -17,6 +17,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import getDefaultImageUrl from "@/constant/getDefaultImageUrl";
+import { initPayment } from "@/services/payment/payment.init";
 
 export default function CheckoutCard({ event }: { event: IEvent }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -28,22 +29,14 @@ export default function CheckoutCard({ event }: { event: IEvent }) {
     const toastId = toast.loading("Processing your request...");
 
     try {
-      const response = await fetch(`/api/payments/initiate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventId: event._id }),
-      });
-
-      const data = await response.json();
-
-      if (data?.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error("Failed to get payment link");
-      }
+      const result =await initPayment(event._id || "");
+      console.log(result)
     } catch (error) {
+        console.log(error)
       toast.error("Something went wrong. Please try again.", { id: toastId });
-      setIsLoading(false);
+    } finally {
+        setIsLoading(false);
+        toast.dismiss(toastId);
     }
   };
 
