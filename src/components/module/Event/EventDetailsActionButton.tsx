@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { saveEvent } from "@/services/savedEvents/saveEvent";
 import { Heart, Share2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -48,8 +49,11 @@ function EventDetailsActionButton({
   return (
     <>
       <div className="flex gap-3 mb-4">
-        <Button className="flex-1 h-14 text-lg font-bold rounded-2xl bg-slate-900 hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200">
-          Join Event
+        <Button
+          asChild
+          className="flex-1 h-14 text-lg font-bold rounded-2xl bg-slate-900 hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200"
+        >
+          <Link href={`/events/${id}/checkout`}>Join Now</Link>
         </Button>
 
         <Button

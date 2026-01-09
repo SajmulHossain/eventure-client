@@ -11,6 +11,7 @@ import { getNameLetters } from "@/lib/getNameLetters";
 import { format } from "date-fns";
 import EventDetailsActionButton from "@/components/module/Event/EventDetailsActionButton";
 import { getSaveEvent } from "@/services/savedEvents/getSaveStatus";
+import getDefaultImageUrl from "@/constant/getDefaultImageUrl";
 
 const EventDetailPage = async ({
   params,
@@ -24,7 +25,7 @@ const EventDetailPage = async ({
 
   if (!event) return <NoDataFound />;
 
-  const defaultImage = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800";
+  const defaultImage = getDefaultImageUrl();
   
   const eventDate = new Date(event.date_and_time);
   const joinedCount = event?.joinedParticipants?.length || 0;
@@ -136,7 +137,6 @@ const EventDetailPage = async ({
                 </div>
               </div>
 
-              {/* Action Buttons Row */}
               <EventDetailsActionButton id={event?._id || ""} isSaved={isSaved} />
 
               <div className="mt-6 p-4 rounded-xl bg-slate-50 flex gap-3 items-start">
