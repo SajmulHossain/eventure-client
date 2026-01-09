@@ -31,7 +31,6 @@ const FeaturedEvents = async () => {
             <EventCard
               key={event._id}
               event={event}
-              className="overflow-hidden border-0 shadow-lg group hover:shadow-xl transition-all duration-300"
             />
           ))}
         </div>

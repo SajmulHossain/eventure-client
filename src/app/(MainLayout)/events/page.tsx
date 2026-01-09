@@ -8,11 +8,14 @@ const EventsPageWrapper = async () => {
   return (
     <section className="page">
       {events.length ? (
-        events.map(async (event) => {
-          console.log(event?._id)
-          const isSaved = await getSaveEvent(event?._id || "") || false;
-          return <EventCard event={event} key={event?._id} isSaved={isSaved} />
-        })
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {events.map(async (event) => {
+            const isSaved = (await getSaveEvent(event?._id || "")) || false;
+            return (
+              <EventCard event={event} key={event?._id} isSaved={isSaved} />
+            );
+          })}
+        </div>
       ) : (
         <NoDataFound />
       )}

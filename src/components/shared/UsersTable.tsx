@@ -49,8 +49,8 @@ export const UsersTable = ({
   if (users.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
-        <User className="h-12 w-12 mx-auto mb-4 opacity-50" />
-        <p>No {role?.toLowerCase() || "users"} found</p>
+        <User className="h-12 w-12 mx-auto mb-4 opacity-50 lowercase" />
+        <p>No {role || "users"} found</p>
       </div>
     );
   }

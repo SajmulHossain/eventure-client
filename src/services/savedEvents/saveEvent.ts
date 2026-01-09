@@ -11,6 +11,7 @@ export const saveEvent = async (id: string) => {
     });
     const result = await res.json();
     revalidateTag("SAVED_EVENT_STATUS", { expire: 0 });
+    revalidateTag("FEATURED_EVENTS", { expire: 0 });
     return result;
   } catch (error) {
     console.log(error);

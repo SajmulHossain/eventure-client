@@ -137,7 +137,7 @@ async function PaymentPage({
                           className={`capitalize px-3 py-1 rounded-full border flex items-center gap-1.5 w-fit mx-auto ${styles.color}`}
                         >
                           {styles.icon}
-                          {payment.status.toLowerCase()}
+                          {payment?.status}
                         </Badge>
                       </TableCell>
                     </TableRow>

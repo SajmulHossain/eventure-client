@@ -1,5 +1,6 @@
 import { UserRole } from "./user.interface";
 
+
 export interface NavItem {
   title: string;
   href: string;
