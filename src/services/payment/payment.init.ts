@@ -10,10 +10,9 @@ export const initPayment = async (id: string) => {
         })
 
         const result = await res.json();
-        console.log(result.data)
-        return result.data;
-    } catch (error) {
+        return result;
+    } catch (error : any) {
         console.log(error)
-        return null;
+        return error?.message || "Something went wrong";
     }
 }
