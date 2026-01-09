@@ -13,6 +13,13 @@ export const getCommonNav = (role: UserRole): NavSection[] => {
           icon: "LayoutDashboard",
           roles: ["USER", "HOST", "ADMIN"],
         },
+
+        {
+          title: "Saved Events",
+          href: "/saved-events",
+          icon: "PlusIcon",
+          roles: ["USER"],
+        },
       ],
     },
   ];
@@ -134,19 +141,13 @@ const userNavItems: NavSection[] = [
     items: [
       {
         title: "Joined Events (Upcoming)",
-        href: "/host/dashboard/joined-events",
+        href: "/dashboard/joined-events",
         icon: "PlusIcon",
         roles: ["USER"],
       },
       {
         title: "Joined Events (Past)",
-        href: "/host/dashboard/past-events",
-        icon: "PlusIcon",
-        roles: ["USER"],
-      },
-      {
-        title: "Saved Events",
-        href: "/host/dashboard/saved-events",
+        href: "/dashboard/past-events",
         icon: "PlusIcon",
         roles: ["USER"],
       },

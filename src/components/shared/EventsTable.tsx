@@ -52,7 +52,7 @@ const getStatusBadgeVariant = (status: EventStatus) => {
   }
 };
 
-export const EventsTable = ({ events, onEdit, onDelete }: EventsTableProps) => {
+export const EventsTable = ({ events=[], onEdit, onDelete }: EventsTableProps) => {
 
   const getCapacityPercentage = (joined: number, required: number): number => {
     return Math.min((joined / required) * 100, 100);
@@ -79,7 +79,7 @@ export const EventsTable = ({ events, onEdit, onDelete }: EventsTableProps) => {
             <TableHead>Participants</TableHead>
             <TableHead>Fee</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            {(onEdit || onDelete) && <TableHead className="text-right">Actions</TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -196,7 +196,8 @@ export const EventsTable = ({ events, onEdit, onDelete }: EventsTableProps) => {
                 </TableCell>
 
                 {/* Actions */}
-                <TableCell className="text-right">
+                {
+                  (onDelete || onEdit) && <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="ghost" size="icon">
@@ -224,6 +225,7 @@ export const EventsTable = ({ events, onEdit, onDelete }: EventsTableProps) => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
+                }
               </TableRow>
             );
           })}
