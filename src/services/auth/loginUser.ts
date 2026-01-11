@@ -46,7 +46,7 @@ export const loginUser = async (
       },
     });
 
-    console.log(res);
+        const result = await res.json();
 
     const cookieHeaders = res.headers.getSetCookie();
 
@@ -63,11 +63,11 @@ export const loginUser = async (
         }
       });
     } else {
-      throw new Error("No set cookie header found!");
+      throw new Error(result?.error?.message || result?.message || "Internal Server Error!");
     }
 
     if (!accessTokenObject || !refreshTokenObject) {
-      throw new Error("No tokens found");
+      throw new Error(result?.error?.message || "Login Failed!");
     }
 
     await setCookie("accessToken", accessTokenObject.accessToken, {
@@ -96,8 +96,6 @@ export const loginUser = async (
       await deleteCookie();
       throw new Error("Invalid token");
     }
-
-    const result = await res.json();
 
     if (!result.success) {
       throw new Error(result.message || "Login Failed!");
