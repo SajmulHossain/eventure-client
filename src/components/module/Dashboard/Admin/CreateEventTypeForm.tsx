@@ -18,7 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createEventType } from "@/services/events/create-event-type";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const CreateEventTypeForm = () => {
   const [state, formAction, isPending] = useActionState(createEventType, null);
@@ -32,6 +33,16 @@ export const CreateEventTypeForm = () => {
       return error?.message;
     }
   };
+
+  useEffect(() => {
+    if(!state?.success) {
+      toast.error(state?.message)
+    } 
+
+    if(state?.success) {
+      toast.success("Type created successfully!")
+    }
+  }, [state])
 
   return (
     <Card>

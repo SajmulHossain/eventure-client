@@ -2,7 +2,7 @@
 
 import { serverFetch } from "@/lib/server-fetch";
 import { redirect } from "next/navigation";
-import z from "zod";
+import z, { success } from "zod";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -35,19 +35,29 @@ export const createEventType = async (
       };
     }
 
-    const result = await serverFetch
-      .post("/event-types", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(isValidateData.data),
-      })
-      .then((res) => res.json());
+    const res = await serverFetch.post("/event-types", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(isValidateData.data),
+    });
 
+    const result = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message:
+          result?.error?.message ||
+          result?.error ||
+          "Failed to create event type",
+      };
+    }
+    
     if (result.success) {
       redirect("/admin/dashboard/event-types");
     }
-
+    
     return result;
   } catch (error: any) {
     if (error?.digest?.startsWith("NEXT_REDIRECT")) {
@@ -57,7 +67,7 @@ export const createEventType = async (
     return {
       success: false,
       errors: [{ field: "general", message: "Failed to create event type" }],
+      message: "Internal Server Error!"
     };
   }
 };
-
