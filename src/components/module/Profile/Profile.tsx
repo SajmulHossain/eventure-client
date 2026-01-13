@@ -167,8 +167,8 @@ const ProfileWrapper = ({
                     <div className="flex items-center gap-3 text-slate-600">
                       <Building2 className="w-4 h-4 text-slate-400 shrink-0" />
                       <span>
-                        {hostedEvents.length} hosted{" "}
-                        {hostedEvents.length === 1 ? "event" : "events"}
+                        {hostedEvents?.length} hosted{" "}
+                        {hostedEvents?.length === 1 ? "event" : "events"}
                       </span>
                     </div>
                   )}
@@ -176,8 +176,8 @@ const ProfileWrapper = ({
                     <div className="flex items-center gap-3 text-slate-600">
                       <Calendar className="w-4 h-4 text-slate-400 shrink-0" />
                       <span>
-                        {joinedEvents.length} joined{" "}
-                        {joinedEvents.length === 1 ? "event" : "events"}
+                        {joinedEvents?.length} joined{" "}
+                        {joinedEvents?.length === 1 ? "event" : "events"}
                       </span>
                     </div>
                   )}
@@ -185,7 +185,7 @@ const ProfileWrapper = ({
               </CardContent>
             </Card>
 
-            {interests && interests.length > 0 && (
+            {interests && interests?.length > 0 && (
               <Card className="border-0 shadow-md">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base font-semibold">

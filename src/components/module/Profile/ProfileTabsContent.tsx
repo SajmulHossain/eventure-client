@@ -46,7 +46,7 @@ export const ProfileTabsContent = ({
     <>
       {role === "HOST" && (
         <TabsContent value="hosted" className="mt-6 space-y-6">
-          {hostedEvents.length > 0 ? (
+          {hostedEvents?.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
               {hostedEvents.map((event) => (
                 <Card
@@ -105,7 +105,7 @@ export const ProfileTabsContent = ({
                         <Users className="w-4 h-4" />
                         <span>
                           {Array.isArray(event.joinedParticipants)
-                            ? event.joinedParticipants.length
+                            ? event.joinedParticipants?.length
                             : event.joinedParticipants || 0}{" "}
                           / {event.required_participants}
                         </span>
@@ -130,7 +130,7 @@ export const ProfileTabsContent = ({
 
       {role === "USER" && (
         <TabsContent value="joined" className="mt-6 space-y-6">
-          {joinedEvents.length > 0 ? (
+          {joinedEvents?.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
               {joinedEvents.map((event) => (
                 <EventCard key={event._id} event={event} />
@@ -152,7 +152,7 @@ export const ProfileTabsContent = ({
               <p className="text-slate-400 italic">No bio available</p>
             )}
 
-            {role === "HOST" && hostedEvents.length > 0 && (
+            {role === "HOST" && hostedEvents?.length > 0 && (
               <>
                 <h3 className="text-lg font-semibold mb-4 mt-6">
                   Event Types Hosted
