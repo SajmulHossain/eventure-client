@@ -32,7 +32,7 @@ const DashboardMobileSidebar = ({
       <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
       {/* Navigation */}
-      <ScrollArea className="flex-1 px-3 py-4">
+      <ScrollArea className="flex-1 px-3 py-4 overflow-y-auto">
         <nav className="space-y-6">
           {navItems.map((section, sectionIdx) => (
             <div key={sectionIdx}>
